@@ -1,0 +1,84 @@
+﻿@page
+@model Pages.Kunden.IndexModel
+@{
+}
+<style>
+    .right {
+        float: right
+    }
+    .left{float: left}
+</style>
+<form method="post">
+
+    <h2>Alle Kunden</h2>
+    <div class="right">
+        <div class="input-group mb-3">
+            <input type="hidden" asp-for="Costumer.ID" />
+            <input type="hidden" asp-for="Costumer.Email" />
+            <input type="hidden" asp-for="Costumer.Standort" />
+
+            <input type="text" class="form-control" placeholder="Neuer Kundenname" asp-for="Costumer.Name" required>
+            <span class="text-danger" asp-validation-for="Costumer.Name"></span>
+            <div class="invalid-feedback">
+                Name is required!
+            </div>
+            <button class="btn btn-outline-secondary" asp-page-handler="Create" type="submit">Erstellen</button>
+        </div>
+    </div>
+</form>
+<form method="post">
+    <div class="">
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>
+                        Kunden Name
+                    </td>
+                    <td>
+                        Kunden Email
+                    </td>
+                    <td>
+                        Standort
+                    </td>
+                    <td>
+                        Adresse
+                    </td>
+                    <td>Telefon</td>
+
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.AllCostumers)
+                {
+                    <tr>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @item.Standort
+                        </td>
+                        <td>
+                            Adresse
+                        </td>
+                        <td>
+                            @if (item.Telefons != null && item.Telefons.Count() > 0)
+                            {
+                                @foreach (var phone in item.Telefons)
+                                {
+                                    <div class="row">
+                                            @phone.Name : @phone.TelefonNummer                                        
+                                    </div>
+                                }
+                            }
+                        </td>
+                        <td><input type="submit" asp-page-handler="Detail" asp-route-ID="@item.ID" value="detail" />  </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

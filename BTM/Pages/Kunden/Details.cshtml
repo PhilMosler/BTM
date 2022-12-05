@@ -1,0 +1,188 @@
+﻿@page "{Id:int?}"
+@using BTM.Data.Enums
+@model Pages.Kunden.DetailsModel
+@{
+}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<h2>Kunde: @Model.CurrentCostumer.Name</h2>
+<div class="row">
+    <div class="col">
+        <form method="post">
+            <input type="hidden" asp-for="CurrentCostumer.ID" />
+            <input type="hidden" asp-for="CurrentCostumer.Name" />
+            <div class="input-group">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Email</span>
+                    <input type="email" class="form-control" placeholder="Email" onchange="this.form.submit();" asp-for="CurrentCostumer.Email" />
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Standort</span>
+                    <input type="text" class="form-control" placeholder="Stanort des Kunden" onchange="this.form.submit();" asp-for="CurrentCostumer.Standort" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="col">
+        <form method="post" asp-page-handler="AddPhone">
+            <input type="hidden" asp-for="Telefon.ID" />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-text">Name</span>
+                                <input type="text" class="form-control" asp-for="Telefon.Name" required />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-text">Telefonnummer</span>
+                                <input type="text" class="form-control" asp-for="Telefon.TelefonNummer" required />
+                            </div>
+                        </td>
+                        <td><div><input type="submit" value="add" /></div></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CurrentCostumer.Telefons)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.TelefonNummer</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </form>
+
+    </div>
+</div>
+<br />
+<br />
+<div>
+
+    <table class="table table">
+        <form method="post">
+        <thead>
+            <tr>
+                <td>Gerätename</td>
+                <td>Gerätenummer</td>
+                <td>Vertragsart</td>
+                <td>Standort</td>
+                <td>Zählerstände</td>
+                <td>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddDeviceModal">
+                        Gerät hinzügen
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="AddDeviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Neues Gerät hinzufügen</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="input-group">
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Name</span>
+                                            <input type="Text" class="form-control" placeholder="Gerätename" asp-for="Devices.DeviceName" required />
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Nummer</span>
+                                            <input type="number" class="form-control" placeholder="Gerätenummer" asp-for="Devices.DeviceNumber" required />
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Standort</span>
+                                            <input type="text" class="form-control" placeholder="Standort" asp-for="Devices.Standort" required />
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <span class="input-group-text">Vertrag</span>
+                                            <select class="custom-select" asp-items="Html.GetEnumSelectList<Verträge>()" asp-for="Devices.VertragsID" required>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-primary" asp-page-handler="AddDevice" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+        </thead>
+        </form>
+        <tbody>
+            @foreach (var item in Model.CurrentCostumer.Devices)
+            {
+                <tr>
+                    <td>@item.DeviceName</td>
+                    <td>@item.DeviceNumber</td>
+                    <td>@item.VertragsID</td>
+                    <td>@item.Standort</td>
+                    <td>
+                        @foreach (var count in item.Counters.ToList().OrderByDescending(x => x.DateTime).Take(5))
+                        {
+                            <div>@count.DateTime.ToShortDateString() => @count.Counter </div>
+                        }
+                    </td>
+                    <form method="post">
+                        <input type="hidden" asp-for="Counters.DeviceID" value="@item.ID"/>
+
+                    <td>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCounter-@item.ID">
+                            Zählerstand hinzufügen
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="AddCounter-@item.ID" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Zählerstand für Gerät @item.DeviceName hinzufügen</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="input-group"> 
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Zählerstand</span>
+                                                <input type="number" class="form-control" placeholder="Zählerstand" asp-for="Counters.Counter" required />
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Quartal</span>
+                                                <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required>
+                                                </select>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <input type="submit" class="btn btn-primary" asp-page-handler="AddCounter"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    </form>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
