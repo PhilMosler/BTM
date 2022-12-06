@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Test\**" />
+    <Content Remove="Pages\Test\**" />
+    <EmbeddedResource Remove="Pages\Test\**" />
+    <None Remove="Pages\Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -22,10 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BTM.Data\BTM.Data.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Pages\Test\" />
   </ItemGroup>
 
 </Project>
