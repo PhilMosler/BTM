@@ -108,6 +108,7 @@
                                             <span class="input-group-text">Vertrag</span>
                                             <select class="custom-select" asp-items="Html.GetEnumSelectList<Verträge>()" asp-for="Devices.VertragsID" required>
                                             </select>
+
                                         </div>
 
                                     </div>
@@ -133,13 +134,34 @@
                     <td>@item.VertragsID</td>
                     <td>@item.Standort</td>
                     <td>
-                        @foreach (var count in item.Counters.ToList().OrderByDescending(x => x.DateTime).Take(5))
-                        {
-                            <div>@count.DateTime.ToShortDateString() => @count.Counter </div>
-                        }
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>Farbe</td>
+                                    <td>Schwarz Weiß</td>
+                                    <td>Gesamt</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var counter in item.Counters.OrderByDescending(x => x.DateTime))
+                                {
+                                    <tr>
+                                        <td>@counter.DateTime.Year</td>
+                                        <td>@counter.Quartal</td>
+                                        <td>@counter.ColorCounter</td>
+                                        <td>@counter.BlackWhiteCounter</td>
+                                        <td>@counter.CounterSum</td>
+                                    </tr>
+                                }
+                                @*Display Counters here*@
+                            </tbody>
+                        </table>
+
                     </td>
                     <form method="post">
-                        <input type="hidden" asp-for="Counters.DeviceID" value="@item.ID"/>
+                        <input type="hidden" asp-for="Counters.DeviceID" value="@item.ID" />
 
                     <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCounter-@item.ID">
@@ -157,22 +179,32 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="input-group"> 
+                                        <div class="input-group">
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">Zählerstand</span>
-                                                <input type="number" class="form-control" placeholder="Zählerstand" asp-for="Counters.Counter" required />
+                                                <span class="input-group-text">Schwarz Weiß</span>
+                                                <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.BlackWhiteCounter" required />
                                             </div>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">Quartal</span>
-                                                <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required>
-                                                </select>
+                                                <span class="input-group-text">Farb</span>
+                                                <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.ColorCounter" required />
                                             </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Gesamt</span>
+                                                <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.CounterSum" value="Counters.BlackWhiteCounter+Counters.ColorCunter" required />
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group">
+                                                    <span class="input-group-text">Quartal</span>
+                                                    <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required>
+                                                    </select>
+                                                </div>
 
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-primary" asp-page-handler="AddCounter"/>
+                                        <input type="submit" class="btn btn-primary" asp-page-handler="AddCounter" />
                                     </div>
                                 </div>
                             </div>

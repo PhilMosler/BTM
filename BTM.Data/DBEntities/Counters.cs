@@ -8,7 +8,10 @@ namespace BTM.Data
         [Key]
         public int ID { get; set; }
         public int DeviceID { get; set; }
-        public int Counter { get; set; }
+        public int BlackWhiteCounter { get; set; }
+        public int ColorCounter { get; set; }
+        public int CounterSum { get; set; }
+
         public DateTime DateTime { get; set; }
         public Quartal Quartal { get; set; }
     }

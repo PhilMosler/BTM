@@ -49,7 +49,7 @@ namespace BTM.Pages.Kunden
         public IActionResult OnPostAddCounter(int ID)
         {
             var counter = this.Counters;
-            counter.DateTime = DateTime.Now;
+            counter.DateTime = DateTime.Now;            
             _db.AddCounters(counter);
             return RedirectToPage();
         }
