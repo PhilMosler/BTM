@@ -129,10 +129,12 @@
             @foreach (var item in Model.CurrentCostumer.Devices)
             {
                 <tr>
+
                     <td>@item.DeviceName</td>
                     <td>@item.DeviceNumber</td>
                     <td>@item.VertragsID</td>
                     <td>@item.Standort</td>
+
                     <td>
                         <table>
                             <thead>
@@ -190,7 +192,7 @@
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Gesamt</span>
-                                                <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.CounterSum" value="Counters.BlackWhiteCounter+Counters.ColorCunter" required />
+                                                <input type="number" class="form-control" asp-for="Counters.CounterSum" required />
                                             </div>
                                             <div class="input-group mb-3">
                                                 <div class="input-group">
