@@ -16,12 +16,7 @@ namespace BTM.Pages.Kunden
         [BindProperty]
         public Counters Counters { get; set; }
         public Counters LastCounter { get; set; }
-        [BindProperty]
-        public int BlackWhite { get; set; }
-        [BindProperty]
-        public int Color { get; set; }
-        [BindProperty]
-        public int SumCount { get; set; }
+        
 
 
         private readonly ICostumer _db;
