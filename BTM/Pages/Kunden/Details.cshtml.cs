@@ -1,6 +1,7 @@
 using BTM.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 
 namespace BTM.Pages.Kunden
 {
@@ -14,7 +15,13 @@ namespace BTM.Pages.Kunden
         public Telefon Telefon { get; set; }
         [BindProperty]
         public Counters Counters { get; set; }
-
+        public Counters LastCounter { get; set; }
+        [BindProperty]
+        public int BlackWhite { get; set; }
+        [BindProperty]
+        public int Color { get; set; }
+        [BindProperty]
+        public int SumCount { get; set; }
 
 
         private readonly ICostumer _db;
@@ -48,10 +55,36 @@ namespace BTM.Pages.Kunden
         }
         public IActionResult OnPostAddCounter(int ID)
         {
+            var correctInput = true;
             var counter = this.Counters;
-            counter.DateTime = DateTime.Now;            
-            _db.AddCounters(counter);
+            counter.DateTime = DateTime.Now;    
+           var lastCounter= _db.GetLastCounterOfDevice(counter);
+            if (lastCounter.ColorCounter >= counter.ColorCounter)
+            {
+                correctInput = false;
+                ViewData["Color"] = "Farb zähler muss größer sein als aus letzem Quartal";
+            }
+            if (lastCounter.CounterSum >= counter.CounterSum)
+            {
+                correctInput = false;
+                ViewData["Gesamt"] = "Gesamtzähler muss größer sein als aus letzem Quartal";
+
+            }
+            if (lastCounter.BlackWhiteCounter >= counter.BlackWhiteCounter)
+            {
+                correctInput = false;
+                ViewData["BlackWhite"] = "Schwarz/Weiß zähler muss größer sein als aus letzem Quartal";
+
+            }
+            if (correctInput)
+                _db.AddCounters(counter);
+           
             return RedirectToPage();
+        }
+        public IActionResult OnPostLast(int ID)
+        {
+
+            return Page();
         }
         
 

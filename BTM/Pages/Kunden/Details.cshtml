@@ -64,6 +64,11 @@
 </div>
 <br />
 <br />
+<div class="alert-danger">
+    @ViewData["Gesamt"]
+    @ViewData["BlackWhite"]
+    @ViewData["Color"]
+</div>
 <div>
 
     <table class="table table">
@@ -139,7 +144,11 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <td></td>
+                                    <td>
+                                        
+
+                                            
+                                    </td>
                                     <td></td>
                                     <td>Farbe</td>
                                     <td>Schwarz Weiß</td>
@@ -166,7 +175,7 @@
                         <input type="hidden" asp-for="Counters.DeviceID" value="@item.ID" />
 
                     <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCounter-@item.ID">
+                        <button asp-page-handler="Last" type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCounter-@item.ID">
                             Zählerstand hinzufügen
                         </button>
 

@@ -29,7 +29,7 @@ namespace BTM.Data
 
         public Kunde AddNewCostumer(Kunde kunde)
         {
-            if(kunde.Name!=null && kunde.Name != String.Empty)
+            if (kunde.Name != null && kunde.Name != String.Empty)
             {
                 _db.Customers.Add(kunde);
                 _db.SaveChanges();
@@ -49,12 +49,12 @@ namespace BTM.Data
             try
             {
                 var All = _db.Customers.ToList();
-                if(All!=null && All.Count() > 0)
+                if (All != null && All.Count() > 0)
                 {
                     foreach (var item in All)
                     {
-                        item.Telefons=_db.Telephone.Where(x=>x.KundenID==item.ID).ToList();
-                        item.Devices=_db.Devices.Where(x=>x.KundenID==item.ID).ToList();
+                        item.Telefons = _db.Telephone.Where(x => x.KundenID == item.ID).ToList();
+                        item.Devices = _db.Devices.Where(x => x.KundenID == item.ID).ToList();
                     }
                 }
                 return All.ToList();
@@ -67,17 +67,26 @@ namespace BTM.Data
 
         public Kunde GetCostumer(int id)
         {
-            if(id != null && id > 0)
+            if (id != null && id > 0)
             {
-                var kunde=_db.Customers.FirstOrDefault(x=>x.ID==id);
-                if(kunde!=null && kunde.ID > 0)
+                var kunde = _db.Customers.FirstOrDefault(x => x.ID == id);
+                if (kunde != null && kunde.ID > 0)
                 {
-                    kunde.Devices=_dev.GetDevicesByCustomerID(id);
+                    kunde.Devices = _dev.GetDevicesByCustomerID(id);
                     kunde.Telefons = _db.Telephone.Where(x => x.KundenID == id).ToList();
                     return kunde;
                 }
             }
             return null;
+        }
+
+        public Counters GetLastCounterOfDevice(Counters counters)
+        {
+            var listOFDeviceCounters = _db.Counters.Where(x => x.DeviceID == counters.DeviceID).OrderByDescending(x => x.DateTime).ToList();
+            var lastCounter = new Counters() {CounterSum=0,BlackWhiteCounter=0,ColorCounter=0};
+            if (listOFDeviceCounters.Count > 0)
+                lastCounter = listOFDeviceCounters.First();
+            return lastCounter;
         }
 
         public Kunde UpdateCostumer(Kunde kunde)

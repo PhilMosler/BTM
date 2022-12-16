@@ -11,5 +11,7 @@ namespace BTM.Data
         void AddTelephone(Telefon telefon);
         Devices AddDevice(Devices device);
         Counters AddCounters(Counters counter);
+        Counters GetLastCounterOfDevice(Counters counters);
+
     }
 }
