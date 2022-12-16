@@ -30,7 +30,13 @@ namespace BTM.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("Counter")
+                    b.Property<int>("BlackWhiteCounter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorCounter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CounterSum")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateTime")

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BTM.Data.Migrations
 {
     [DbContext(typeof(BTMDbContext))]
-    [Migration("20221205174234_Init")]
+    [Migration("20221210135135_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -33,7 +33,13 @@ namespace BTM.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("Counter")
+                    b.Property<int>("BlackWhiteCounter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorCounter")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CounterSum")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateTime")

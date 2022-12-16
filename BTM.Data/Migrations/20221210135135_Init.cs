@@ -18,7 +18,9 @@ namespace BTM.Data.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DeviceID = table.Column<int>(type: "int", nullable: false),
-                    Counter = table.Column<int>(type: "int", nullable: false),
+                    BlackWhiteCounter = table.Column<int>(type: "int", nullable: false),
+                    ColorCounter = table.Column<int>(type: "int", nullable: false),
+                    CounterSum = table.Column<int>(type: "int", nullable: false),
                     DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Quartal = table.Column<int>(type: "int", nullable: false)
                 },

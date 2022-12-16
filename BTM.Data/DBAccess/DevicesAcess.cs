@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using BTM.Data.Enums;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,18 +22,20 @@ namespace BTM.Data.DBAccess
                 if (id != null && id > 0)
                 {
                     var devices = _db.Devices.Where(x => x.KundenID == id).ToList();
+                  
                     foreach (var device in devices)
                     {
-                        device.Counters = _db.Counters.Where(x => x.DeviceID == device.ID).ToList();
+                        device.Counters= _db.Counters.Where(x => x.DeviceID == device.ID).OrderByDescending(x=>x.DateTime).ToList();
+                        
                     }
                     return devices;
                 }
-                return null;
+                return new List<Devices>();
             }
             catch (Exception e)
             {
                 Console.WriteLine("Error while getting Devices by Customer   =>" + e.Message + " stacktrace: " + e.StackTrace);
-                return null;
+                return new  List<Devices>();
             }
         }
     }
