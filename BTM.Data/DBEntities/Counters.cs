@@ -5,6 +5,12 @@ namespace BTM.Data
 {
     public class Counters
     {
+        
+        public Counters()
+        {
+
+        }
+        
         [Key]
         public int ID { get; set; }
         public int DeviceID { get; set; }

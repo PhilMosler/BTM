@@ -6,12 +6,15 @@
     .right {
         float: right
     }
-    .left{float: left}
-</style>
-<form method="post">
 
-    <h2>Alle Kunden</h2>
-    <div class="right">
+    .left {
+        float: left
+    }
+</style>
+<h2>Alle Kunden</h2>
+
+<div class="right">
+    <form method="post">
         <div class="input-group mb-3">
             <input type="hidden" asp-for="Costumer.ID" />
             <input type="hidden" asp-for="Costumer.Email" />
@@ -24,8 +27,16 @@
             </div>
             <button class="btn btn-outline-secondary" asp-page-handler="Create" type="submit">Erstellen</button>
         </div>
-    </div>
-</form>
+    </form>
+</div>
+<div class="left">
+    <form method="get">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Suchen nach..." asp-for="Search" />
+            <button class="btn btn-outline-secondary" asp-page-handler="Search" type="submit">Suchen</button>
+        </div>
+    </form>
+</div>
 <form method="post">
     <div class="">
         <table class="table">
@@ -70,7 +81,7 @@
                                 @foreach (var phone in item.Telefons)
                                 {
                                     <div class="row">
-                                            @phone.Name : @phone.TelefonNummer                                        
+                                        @phone.Name : @phone.TelefonNummer
                                     </div>
                                 }
                             }

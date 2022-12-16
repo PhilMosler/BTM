@@ -1,10 +1,10 @@
 ﻿Todos
 
-Zählerstand überprüfen nur wenn größer als vorher speichern
+Zählerstand überprüfen nur wenn größer als vorher speichern => User Notification fehlt noch
 Verschiedene Vertragsarten hinzufügen
 Ausblenden an Geräten
 Frei Kopien hinzufügen bei Geräten
 Quartal weise abrechnung erstellen
-Suche nach namen und Gerätenummern 
+Suche nach namen und Gerätenummern => aktuell nach Namen/Email
 
 
