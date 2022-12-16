@@ -1,6 +1,8 @@
 ﻿@page "{Id:int?}"
 @using BTM.Data.Enums
 @model Pages.Kunden.DetailsModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 @{
 }
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -64,11 +66,10 @@
 </div>
 <br />
 <br />
-<div class="alert-danger">
-    @ViewData["Gesamt"]
-    @ViewData["BlackWhite"]
-    @ViewData["Color"]
-</div>
+
+
+
+
 <div>
 
     <table class="table table">
@@ -80,6 +81,8 @@
                 <td>Vertragsart</td>
                 <td>Standort</td>
                 <td>Zählerstände</td>
+
+
                 <td>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddDeviceModal">
                         Gerät hinzügen
@@ -126,13 +129,20 @@
                         </div>
                     </div>
                 </td>
-                <td></td>
             </tr>
         </thead>
         </form>
         <tbody>
             @foreach (var item in Model.CurrentCostumer.Devices)
             {
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>@ViewData["Color"]</td>
+
+                </tr>
                 <tr>
 
                     <td>@item.DeviceName</td>
@@ -144,28 +154,35 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <td>
-                                        
-
-                                            
-                                    </td>
-                                    <td></td>
+                                    <td>Jahr</td>
+                                    <td>Quartal</td>
                                     <td>Farbe</td>
                                     <td>Schwarz Weiß</td>
                                     <td>Gesamt</td>
+                                    <td></td>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var counter in item.Counters.OrderByDescending(x => x.DateTime))
-                                {
+                                <form method="post">
+
+
+                                    @foreach (var counter in item.Counters.OrderByDescending(x => x.DateTime))
+                                    {
                                     <tr>
                                         <td>@counter.DateTime.Year</td>
                                         <td>@counter.Quartal</td>
                                         <td>@counter.ColorCounter</td>
                                         <td>@counter.BlackWhiteCounter</td>
                                         <td>@counter.CounterSum</td>
+                                        <td>
+                                                @if (item.Counters[0].ID == counter.ID)
+                                                {
+                                                <input value="löschen" type="submit" class="btn btn-primary" asp-page-handler="RemoveCounter" asp-route-CounterID="@counter.ID" />
+                                                }
+                                        </td>
                                     </tr>
-                                }
+                                    }
+                                </form>
                                 @*Display Counters here*@
                             </tbody>
                         </table>
@@ -206,8 +223,7 @@
                                             <div class="input-group mb-3">
                                                 <div class="input-group">
                                                     <span class="input-group-text">Quartal</span>
-                                                    <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required>
-                                                    </select>
+                                                    <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required></select>
                                                 </div>
 
                                             </div>

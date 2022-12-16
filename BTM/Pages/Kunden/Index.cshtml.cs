@@ -17,9 +17,11 @@ namespace BTM.Pages.Kunden
         public List<Kunde> AllCostumers { get; set; }
         [BindProperty]
         public Kunde Costumer { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string Search { get; set; }
         public void OnGet()
         {
-            AllCostumers = _costumer.GetAllCostumers();
+            AllCostumers = _costumer.GetAllCostumers(Search);
             Costumer = new Kunde { Email = string.Empty, Standort = string.Empty };
         }
         public IActionResult OnPostCreate()
@@ -34,6 +36,10 @@ namespace BTM.Pages.Kunden
         public IActionResult OnPostDetail(int ID)
         {
             return RedirectToPage($"./Details",new {Id=ID });
+        }
+        public IActionResult OnPostSearch()
+        {
+            return RedirectToPage();
         }
     }
 }
