@@ -35,5 +35,9 @@ namespace BTM.Pages.Kunden
         {
             return RedirectToPage($"./Details",new {Id=ID });
         }
+        public IActionResult OnPostFilter()
+        {
+            return RedirectToPage();
+        }
     }
 }
