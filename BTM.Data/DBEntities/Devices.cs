@@ -11,6 +11,8 @@ namespace BTM.Data
         public int KundenID { get; set; }
         public int DeviceNumber { get; set; }
         public string DeviceName { get; set; }
+        public int FreePrintsColor { get; set; }
+        public int FreePrintsBlackWhite { get; set; }
         public Verträge VertragsID { get; set; }
         public string Standort { get; set; }
         [NotMapped]

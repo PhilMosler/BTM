@@ -4,204 +4,102 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
+    ViewData["Title"] = "Kunden Details";
 }
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+<!-- Bootstrap Font Icon CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-
+<html>
 <h2>Kunde: @Model.CurrentCostumer.Name</h2>
-<div class="row">
-    <div class="col">
-        <form method="post">
-            <input type="hidden" asp-for="CurrentCostumer.ID" />
-            <input type="hidden" asp-for="CurrentCostumer.Name" />
-            <div class="input-group">
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Email</span>
-                    <input type="email" class="form-control" placeholder="Email" onchange="this.form.submit();" asp-for="CurrentCostumer.Email" />
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">Standort</span>
-                    <input type="text" class="form-control" placeholder="Stanort des Kunden" onchange="this.form.submit();" asp-for="CurrentCostumer.Standort" />
-                </div>
-            </div>
-        </form>
-
-    </div>
-    <div class="col">
-        <form method="post" asp-page-handler="AddPhone">
-            <input type="hidden" asp-for="Telefon.ID" />
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-text">Name</span>
-                                <input type="text" class="form-control" asp-for="Telefon.Name" required />
-                            </div>
-                        </td>
-                        <td>
-                            <div class="input-group">
-                                <span class="input-group-text">Telefonnummer</span>
-                                <input type="text" class="form-control" asp-for="Telefon.TelefonNummer" required />
-                            </div>
-                        </td>
-                        <td><div><input type="submit" value="add" /></div></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.CurrentCostumer.Telefons)
-                    {
-                        <tr>
-                            <td>@item.Name</td>
-                            <td>@item.TelefonNummer</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </form>
-
-    </div>
-</div>
 <br />
+<form method="post">
+    <button class="btn btn-secondary" asp-page-handler="Back">Zurück</button>
+</form>
 <br />
-
-
-
-
-<div>
-
-    <table class="table table">
-        <form method="post">
-        <thead>
-            <tr>
-                <td>Gerätename</td>
-                <td>Gerätenummer</td>
-                <td>Vertragsart</td>
-                <td>Standort</td>
-                <td>Zählerstände</td>
-
-
-                <td>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddDeviceModal">
-                        Gerät hinzügen
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="AddDeviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Neues Gerät hinzufügen</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="input-group">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text">Name</span>
-                                            <input type="Text" class="form-control" placeholder="Gerätename" asp-for="Devices.DeviceName" required />
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text">Nummer</span>
-                                            <input type="number" class="form-control" placeholder="Gerätenummer" asp-for="Devices.DeviceNumber" required />
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text">Standort</span>
-                                            <input type="text" class="form-control" placeholder="Standort" asp-for="Devices.Standort" required />
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text">Vertrag</span>
-                                            <select class="custom-select" asp-items="Html.GetEnumSelectList<Verträge>()" asp-for="Devices.VertragsID" required>
-                                            </select>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <input type="submit" class="btn btn-primary" asp-page-handler="AddDevice" />
-                                </div>
-                            </div>
-                        </div>
+<body>
+    <div class="row">
+        <div class="col">
+            <form method="post">
+                <input type="hidden" asp-for="CurrentCostumer.ID" />
+                <input type="hidden" asp-for="CurrentCostumer.Name" />
+                <div class="input-group">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Email</span>
+                        <input type="email" class="form-control" placeholder="Email" onchange="this.form.submit();" asp-for="CurrentCostumer.Email" />
                     </div>
-                </td>
-            </tr>
-        </thead>
-        </form>
-        <tbody>
-            @foreach (var item in Model.CurrentCostumer.Devices)
-            {
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>@ViewData["Color"]</td>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Standort</span>
+                        <input type="text" class="form-control" placeholder="Stanort des Kunden" onchange="this.form.submit();" asp-for="CurrentCostumer.Standort" />
+                    </div>
+                </div>
+            </form>
 
-                </tr>
-                <tr>
+        </div>
+        <div class="col">
+            <form method="post" asp-page-handler="AddPhone">
+                <input type="hidden" asp-for="Telefon.ID" />
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-text">Name</span>
+                                    <input type="text" class="form-control" asp-for="Telefon.Name" required />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <span class="input-group-text">Telefonnummer</span>
+                                    <input type="text" class="form-control" asp-for="Telefon.TelefonNummer" required />
+                                </div>
+                            </td>
+                            <td><div><button type="submit" value="add" class="btn btn-outline-secondary"><i class="bi bi-telephone-plus"></i></button></div></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CurrentCostumer.Telefons)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.TelefonNummer</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
 
-                    <td>@item.DeviceName</td>
-                    <td>@item.DeviceNumber</td>
-                    <td>@item.VertragsID</td>
-                    <td>@item.Standort</td>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div>
+
+        <table class="table table">
+            <form method="post">
+            <thead>
+                <tr>
+                    <td>Gerätename</td>
+                    <td>Gerätenummer</td>
+                    <td>Vertragsart</td>
+                    <td>Standort</td>
+                    <td>Zählerstände</td>
+
 
                     <td>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>Jahr</td>
-                                    <td>Quartal</td>
-                                    <td>Farbe</td>
-                                    <td>Schwarz Weiß</td>
-                                    <td>Gesamt</td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <form method="post">
-
-
-                                    @foreach (var counter in item.Counters.OrderByDescending(x => x.DateTime))
-                                    {
-                                    <tr>
-                                        <td>@counter.DateTime.Year</td>
-                                        <td>@counter.Quartal</td>
-                                        <td>@counter.ColorCounter</td>
-                                        <td>@counter.BlackWhiteCounter</td>
-                                        <td>@counter.CounterSum</td>
-                                        <td>
-                                                @if (item.Counters[0].ID == counter.ID)
-                                                {
-                                                <input value="löschen" type="submit" class="btn btn-primary" asp-page-handler="RemoveCounter" asp-route-CounterID="@counter.ID" />
-                                                }
-                                        </td>
-                                    </tr>
-                                    }
-                                </form>
-                                @*Display Counters here*@
-                            </tbody>
-                        </table>
-
-                    </td>
-                    <form method="post">
-                        <input type="hidden" asp-for="Counters.DeviceID" value="@item.ID" />
-
-                    <td>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCounter-@item.ID">
-                            Zählerstand hinzufügen
+                        <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#AddDeviceModal">
+                            <i class="bi bi-printer-fill">   Drucker hinzufügen</i>
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="AddCounter-@item.ID" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal fade" id="AddDeviceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Zählerstand für Gerät @item.DeviceName hinzufügen</h5>
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Neues Gerät hinzufügen</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -209,39 +107,257 @@
                                     <div class="modal-body">
                                         <div class="input-group">
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">Schwarz Weiß</span>
-                                                <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.BlackWhiteCounter" required />
+                                                <span class="input-group-text">Name</span>
+                                                <input type="Text" class="form-control" placeholder="Gerätename" asp-for="Devices.DeviceName" required />
                                             </div>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">Farb</span>
-                                                <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.ColorCounter" required />
+                                                <span class="input-group-text">Nummer</span>
+                                                <input type="number" class="form-control" placeholder="Gerätenummer" asp-for="Devices.DeviceNumber" required />
                                             </div>
                                             <div class="input-group mb-3">
-                                                <span class="input-group-text">Gesamt</span>
-                                                <input type="number" class="form-control" asp-for="Counters.CounterSum" required />
+                                                <span class="input-group-text">Standort</span>
+                                                <input type="text" class="form-control" placeholder="Standort" asp-for="Devices.Standort" required />
                                             </div>
                                             <div class="input-group mb-3">
-                                                <div class="input-group">
-                                                    <span class="input-group-text">Quartal</span>
-                                                    <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required></select>
-                                                </div>
+                                                <span class="input-group-text">Frei Kopien Farbe</span>
+                                                <input type="number" class="form-control" placeholder="Farbe" asp-for="Devices.FreePrintsColor" value="0" />
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Frei Kopien Schwarz/Weiß</span>
+                                                <input type="number" class="form-control" placeholder="Farbe" asp-for="Devices.FreePrintsBlackWhite" value="0" />
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Vertrag</span>
+                                                <select class="custom-select" asp-items="Html.GetEnumSelectList<Verträge>()" asp-for="Devices.VertragsID" required>
+                                                </select>
 
                                             </div>
+
                                         </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <input type="submit" class="btn btn-primary" asp-page-handler="AddCounter" />
+                                        <div class="left" style="float:left">
+                                            <button type="button" style="float:left" class="btn btn-secondary left" data-dismiss="modal">Abbrechen</button>
+                                        </div>
+                                        <div style="float:right">
+                                            <button title="Neuen Drucker hinzufügen" style="float:right" type="submit" class="btn btn-primary" asp-page-handler="AddDevice">Hinzufügen</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </td>
-                    </form>
                 </tr>
-            }
-        </tbody>
+            </thead>
+            </form>
+            <tbody>
+                @foreach (var item in Model.CurrentCostumer.Devices)
+                {
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>@ViewData["Color"]</td>
 
-    </table>
-</div>
+                    </tr>
+                    <tr>
+
+                        <td>@item.DeviceName</td>
+                        <td>@item.DeviceNumber</td>
+                        <td>@item.VertragsID</td>
+                        <td>@item.Standort</td>
+
+                        <td>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <td>Jahr</td>
+                                        <td>Quartal</td>
+                                        <td>Farbe</td>
+                                        <td>Schwarz Weiß</td>
+                                        <td>Gesamt</td>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <form method="post">
+
+                                        @foreach (var counter in item.Counters.OrderByDescending(x => x.DateTime))
+                                        {
+                                        <tr class="content">
+                                            <td>@counter.DateTime.Year</td>
+                                            <td>@counter.Quartal</td>
+                                            <td>@counter.ColorCounter</td>
+                                            <td>@counter.BlackWhiteCounter</td>
+                                            <td>@counter.CounterSum</td>
+                                            <td>
+                                                    @if (item.Counters[0].ID == counter.ID)
+                                                    {
+                                                    <button type="submit" class="btn btn-sm button" asp-page-handler="RemoveCounter" asp-route-CounterID="@counter.ID">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                    }
+                                            </td>
+                                            
+
+                                        </tr>
+                                        }
+                                    </form>
+
+                                </tbody>
+                                 
+                            </table>
+
+                        </td>
+                        <form method="post">
+                            <input type="hidden" asp-for="Counters.DeviceID" value="@item.ID" />
+
+                        <td>
+                            <div class="floated">
+                                <button title="Neuen Zählerstand Hinzufügen" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#AddCounter-@item.ID">
+                                    <i class="bi bi-plus-circle">   Zählerstand</i>
+                                </button>
+
+                            </div>
+                            <div class="modal fade" id="AddCounter-@item.ID" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Zählerstand für Gerät @item.DeviceName hinzufügen</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group">
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">Schwarz Weiß</span>
+                                                    <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.BlackWhiteCounter" />
+                                                    <span class="input-group-text">@item.FreePrintsBlackWhite Freikopien</span>
+
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">Farb</span>
+                                                    <input type="number" class="form-control" placeholder="Zähler" asp-for="Counters.ColorCounter" />
+                                                    <span class="input-group-text">@item.FreePrintsColor Freikopien</span>
+
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <span class="input-group-text">Gesamt</span>
+                                                    <input type="number" class="form-control" asp-for="Counters.CounterSum" />
+
+                                                </div>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group">
+                                                        <span class="input-group-text">Quartal</span>
+                                                        <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required></select>
+                                                        <span class="input-group-text">@DateTime.Today.ToString("yyyy")</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+                                            <button type="submit" class="btn btn-primary" asp-page-handler="AddCounter">Hinzufügen</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td> @*Modal for Adding new Counter*@
+
+                        </form>
+                        <form method="post">
+                        <td>
+                            <button title="Quartal auswerten" type="submit" class="btn btn-outline-success" asp-page-handler="CalculateCounters" asp-route-DeviceID="@item.ID">
+                                <i class="bi bi-calculator">   Auswertung</i>
+                            </button>
+                        </td>
+                        </form>
+                    </tr>
+                }
+                <br />
+                <br />
+
+            </tbody>
+
+        </table>
+
+    </div>
+    @section Scripts{
+        <script>
+            function onClick() {
+                var coll = document.getElementsByClassName("collapsible");
+                var i;
+
+                for (i = 0; i < coll.length; i++) {
+                    coll[i].addEventListener("click", function () {
+                        this.classList.toggle("active");
+                        var content = this.nextElementSibling;
+                        if (content.style.maxHeight) {
+                            content.style.maxHeight = null;
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                        }
+                    });
+                }
+            }
+
+        </script>
+    }
+
+    </body>
+
+    </html>
+
+
+
+    <style>
+        .left {
+            float: left;
+        }
+
+        .floated {
+            float: left;
+            margin-right: 5px;
+        }
+
+        .button {
+            border-radius: 10px;
+            min-height: 30px;
+            min-width: 50;
+        }
+
+            .button:hover {
+                background-color: red;
+                transition: 0.4s;
+                opacity: 0.5;
+            }
+
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+            .active, .collapsible:hover {
+                background-color: darkgray;
+            }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #f1f1f1;
+        }
+    </style>
+
 

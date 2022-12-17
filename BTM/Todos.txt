@@ -3,7 +3,7 @@
 Zählerstand überprüfen nur wenn größer als vorher speichern => User Notification fehlt noch
 Verschiedene Vertragsarten hinzufügen
 Ausblenden an Geräten
-Frei Kopien hinzufügen bei Geräten
+Frei Kopien hinzufügen bei Geräten => fertig
 Quartal weise abrechnung erstellen
 Suche nach namen und Gerätenummern => aktuell nach Namen/Email
 

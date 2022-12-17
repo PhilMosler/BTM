@@ -96,7 +96,37 @@ namespace BTM.Pages.Kunden
             _db.RemoveCounter(CounterID);
             return RedirectToPage();
         }
+        public IActionResult OnPostCalculateCounters(int DeviceID)
+        {
 
+            return RedirectToPage();
+        }
+        public IActionResult OnPostBack()
+        {
+
+            return RedirectToPage("./Index");
+        }
+        private void GetPriceFromContracts(Devices device)
+        {
+
+            switch (device.VertragsID)
+            {
+                case Data.Enums.Vertr‰ge.MV:
+
+                    break;
+                case Data.Enums.Vertr‰ge.Schwarz_Weiﬂ:
+
+                    break;
+                case Data.Enums.Vertr‰ge.Farbe:
+
+                    break;
+                case Data.Enums.Vertr‰ge.None:
+
+                    break;
+                default:
+                    break;
+            }
+        }
 
 
     }

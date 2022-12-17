@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTM", "BTM\BTM.csproj", "{5153803E-D024-4FCA-83A1-99E4E17519D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTM", "BTM\BTM.csproj", "{5153803E-D024-4FCA-83A1-99E4E17519D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BTM.Data", "BTM.Data\BTM.Data.csproj", "{5411B374-C925-4EAC-A2E5-E97E78B62DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BTM.Data", "BTM.Data\BTM.Data.csproj", "{5411B374-C925-4EAC-A2E5-E97E78B62DEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
