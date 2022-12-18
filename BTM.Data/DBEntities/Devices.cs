@@ -15,9 +15,15 @@ namespace BTM.Data
         public int FreePrintsBlackWhite { get; set; }
         public Verträge VertragsID { get; set; }
         public string Standort { get; set; }
+        public bool IsVisible { get; set; } = true;
         [NotMapped]
         public List<Counters> Counters { get; set; }
         [NotMapped]
         public List<DateTime>? LastCounterTimestamps { get; set; }
+        [NotMapped]
+        public int ColEval { get; set; }
+        [NotMapped]
+        public int BlackWhiteEval { get; set; }
+        
     }
 }

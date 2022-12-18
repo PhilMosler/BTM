@@ -20,5 +20,7 @@ namespace BTM.Data
 
         public DateTime DateTime { get; set; }
         public Quartal Quartal { get; set; }
+
+       
     }
 }

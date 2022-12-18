@@ -79,15 +79,17 @@
     <div>
 
         <table class="table table">
-            <form method="post">
             <thead>
                 <tr>
+                    <td></td>
+
                     <td>Gerätename</td>
                     <td>Gerätenummer</td>
                     <td>Vertragsart</td>
                     <td>Standort</td>
                     <td>Zählerstände</td>
 
+                    <form method="post">
 
                     <td>
                         <button type="button" class="btn btn-outline-secondary" data-toggle="modal" data-target="#AddDeviceModal">
@@ -147,22 +149,50 @@
                             </div>
                         </div>
                     </td>
+                    </form>
+                    <form method="post">
+                    <td>
+                        <button title="Quartal auswerten" type="submit" class="btn btn-outline-success" asp-page-handler="CalculateCounters">
+                            <i class="bi bi-calculator"> Auswertung</i>
+                        </button>
+                    </td>
+                    </form>
                 </tr>
             </thead>
-            </form>
             <tbody>
                 @foreach (var item in Model.CurrentCostumer.Devices)
                 {
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>@ViewData["Color"]</td>
 
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
+                        <form method="post">
+                        <td>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#löschen"><i class="bi bi-trash"></i></button>
+                            <div class="modal fade" id="löschen" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="löschen">@item.DeviceName löschen?</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Wollen sie wirklich das Gerät entfernen?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                                            <button type="submit" class="btn btn-danger" asp-page-handler="DeleteDevice" asp-route-DeviceID="@item.ID">Löschen</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
 
+                        </form>
                         <td>@item.DeviceName</td>
                         <td>@item.DeviceNumber</td>
                         <td>@item.VertragsID</td>
@@ -186,7 +216,7 @@
                                         @foreach (var counter in item.Counters.OrderByDescending(x => x.DateTime))
                                         {
                                         <tr class="content">
-                                            <td>@counter.DateTime.Year</td>
+                                            <td>@counter.DateTime.ToString("yyyy")</td>
                                             <td>@counter.Quartal</td>
                                             <td>@counter.ColorCounter</td>
                                             <td>@counter.BlackWhiteCounter</td>
@@ -194,19 +224,19 @@
                                             <td>
                                                     @if (item.Counters[0].ID == counter.ID)
                                                     {
-                                                    <button type="submit" class="btn btn-sm button" asp-page-handler="RemoveCounter" asp-route-CounterID="@counter.ID">
+                                                    <button type="submit" title="Zählerstand löschen" class="btn btn-sm button" asp-page-handler="RemoveCounter" asp-route-CounterID="@counter.ID">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                     }
                                             </td>
-                                            
+
 
                                         </tr>
                                         }
                                     </form>
 
                                 </tbody>
-                                 
+
                             </table>
 
                         </td>
@@ -268,13 +298,7 @@
                         </td> @*Modal for Adding new Counter*@
 
                         </form>
-                        <form method="post">
-                        <td>
-                            <button title="Quartal auswerten" type="submit" class="btn btn-outline-success" asp-page-handler="CalculateCounters" asp-route-DeviceID="@item.ID">
-                                <i class="bi bi-calculator">   Auswertung</i>
-                            </button>
-                        </td>
-                        </form>
+
                     </tr>
                 }
                 <br />

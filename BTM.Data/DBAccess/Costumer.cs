@@ -110,6 +110,20 @@ namespace BTM.Data
             return lastCounter;
         }
 
+        public void HideDevice(int DeviceID)
+        {
+            if(DeviceID > 0)
+            {
+                var selcted = _db.Devices.SingleOrDefault(x => x.ID == DeviceID);
+                if (selcted.ID > 0)
+                {
+                    selcted.IsVisible = false;
+                    _db.Devices.Update(selcted);
+                    _db.SaveChanges();
+                }
+            }
+        }
+
         public void RemoveCounter(int counterID)
         {
             if (counterID > 0)

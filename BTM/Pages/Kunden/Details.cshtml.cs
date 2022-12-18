@@ -1,8 +1,11 @@
 using BTM.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
+using Syncfusion.DocIO.DLS;
+using Syncfusion.DocIO;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml;
 
 namespace BTM.Pages.Kunden
 {
@@ -84,7 +87,7 @@ namespace BTM.Pages.Kunden
             {
                 Black = false;
             }
-            if (Black && Gesamt && Color)
+            if (Black && Color)
             {
                 _db.AddCounters(counter);
             }
@@ -96,38 +99,26 @@ namespace BTM.Pages.Kunden
             _db.RemoveCounter(CounterID);
             return RedirectToPage();
         }
-        public IActionResult OnPostCalculateCounters(int DeviceID)
+        public IActionResult OnPostCalculateCounters(int ID)
         {
+            return RedirectToPage("./Evaluation", new { ID });
+        }       
 
-            return RedirectToPage();
-        }
         public IActionResult OnPostBack()
         {
 
             return RedirectToPage("./Index");
         }
-        private void GetPriceFromContracts(Devices device)
+        public IActionResult OnPostDeleteDevice(int ID,int DeviceID)
         {
-
-            switch (device.VertragsID)
-            {
-                case Data.Enums.Vertr‰ge.MV:
-
-                    break;
-                case Data.Enums.Vertr‰ge.Schwarz_Weiﬂ:
-
-                    break;
-                case Data.Enums.Vertr‰ge.Farbe:
-
-                    break;
-                case Data.Enums.Vertr‰ge.None:
-
-                    break;
-                default:
-                    break;
-            }
+            _db.HideDevice(DeviceID);
+            return RedirectToPage();
         }
+        private void CreateCostumerEvaluation(Kunde results)
+        {
+            
 
+        }
 
     }
 }

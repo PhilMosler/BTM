@@ -1,5 +1,7 @@
 ﻿
 
+using BTM.Data.Enums;
+
 namespace BTM.Data
 {
     public interface ICostumer
@@ -14,6 +16,7 @@ namespace BTM.Data
         Counters GetLastCounterOfDevice(int ID);
         void RemoveCounter(int counterID);
         List<Tuple<Devices, Counters>> GetAllLastCountersOfKunde(int ID);
+        void HideDevice(int DeviceID);
 
     }
 }

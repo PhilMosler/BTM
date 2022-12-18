@@ -1,0 +1,93 @@
+﻿@page "{Id:int?}"
+@using System.Reflection
+@using BTM.Data.Enums
+@model BTM.Pages.Kunden.EvaluationModel
+@{
+}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+<!-- Bootstrap Font Icon CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<html>
+<header>
+</header>
+<body>
+    <h3 style="text-align:center">Abbrechnung für Kunde: @Model.Costumer.Name</h3>
+    <form method="post">
+        <div><button class="btn btn-secondary" asp-page-handler="Back"><i class="bi bi-arrow-return-left">  Zurück</i></button></div>
+
+    </form>
+
+    <br />
+    <br />
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Gerätenamen</td>
+                    <td>Vertrag</td>
+                    <td class="table-active"></td>
+                    <td class="table-active">letztes Quartal</td>
+                    <td class="table-active"></td>
+                    <td></td>
+                    <td class="table-active"></td>
+                    <td class="table-active">aktuelles Quartal</td>
+                    <td class="table-active"></td>
+
+                    <td>Freikopien</td>
+                    <td class="table-active table-success"></td>
+                    <td class="table-active table-success">Abzurechnende Kopien</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+
+                    <td class="table-active">Farbe</td>
+                    <td class="table-active">Schwarz/Weiß</td>
+                    <td class="table-active">Gesamt</td>
+                    <td></td>
+                    <td class="table-active">Farbe</td>
+                    <td class="table-active">Schwarz/Weiß</td>
+                    <td class="table-active">Gesamt</td>
+                    <td>Farbe/SchwarzWeiß</td>
+                    <td class="table-active table-success">Farbe</td>
+                    <td class="table-active table-success">Schwarz/Weiß</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var device in Model.Devices)
+                {
+                    <tr>
+                        <td>@device.DeviceName</td>
+                        <td>@{
+                                @foreach (var value in @EnumHelper<Verträge>.GetValues(device.VertragsID))
+                                {
+                                    if (value == device.VertragsID)
+                                    {
+                                        var description = EnumHelper<Verträge>.GetDisplayValue(value);
+                                        @Html.DisplayFor(e => description )
+                                    }
+                                }
+                            }</td>
+
+                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].ColorCounter</td>
+                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].BlackWhiteCounter</td>
+                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].CounterSum</td>
+                        <td></td>
+                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].ColorCounter</td>
+                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].BlackWhiteCounter</td>
+                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].CounterSum</td>
+                        <td style="text-align:center">@device.FreePrintsColor/@device.FreePrintsBlackWhite</td>
+                        <td class="table-success" style="text-align:center">@device.ColEval</td>
+                        <td class="table-success" style="text-align:center">@device.BlackWhiteEval</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
