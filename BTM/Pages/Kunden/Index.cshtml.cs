@@ -22,6 +22,9 @@ namespace BTM.Pages.Kunden
         public void OnGet()
         {
             AllCostumers = _costumer.GetAllCostumers(Search);
+            if (AllCostumers == null)
+                AllCostumers = new List<Kunde>();
+            
             Costumer = new Kunde { Email = string.Empty, Standort = string.Empty };
         }
         public IActionResult OnPostCreate()
