@@ -59,14 +59,23 @@ namespace BTM.Data
                 {
                     foreach (var item in All)
                     {
-                        item.Telefons = _db.Telephone.Where(x => x.KundenID == item.ID).ToList();
-                        item.Devices = _db.Devices.Where(x => x.KundenID == item.ID).ToList();
+                        var phone= _db.Telephone.Where(x => x.KundenID == item.ID).ToList();
+                        var device= _db.Devices.Where(x => x.KundenID == item.ID).ToList();
+                        if (phone.Any())
+                        {
+                            item.Telefons=phone;
+                        }
+                        if(device.Any())
+                        {
+                            item.Devices=device;
+                        }
                     }
                 }
                 return All.ToList();
             }
             catch (Exception e)
             {
+                Console.WriteLine("Get All Customer failed"+e.Message+e.StackTrace);
                 return null;
             }
         }
