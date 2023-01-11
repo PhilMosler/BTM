@@ -10,3 +10,4 @@ Suche nach namen und Gerätenummern => aktuell nach Namen/Email
 
 Evaluation fails if Counter is not there
 Alle felder bearbeiten
+Optisches Feedback ob aktuelles Quartal vorhanden ist.
