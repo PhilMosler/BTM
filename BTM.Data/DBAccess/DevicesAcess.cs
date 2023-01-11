@@ -28,8 +28,8 @@ namespace BTM.Data.DBAccess
                         device.Counters = _db.Counters.Where(x => x.DeviceID == device.ID).OrderByDescending(x => x.DateTime).ToList();
                         if (device.Counters.Count > 1)
                         {
-                            device.ColEval = device.Counters[0].ColorCounter - device.Counters[1].ColorCounter - device.FreePrintsColor;
-                            device.BlackWhiteEval = device.Counters[0].BlackWhiteCounter - device.Counters[1].BlackWhiteCounter - device.FreePrintsBlackWhite;
+                            device.ColEval = device.Counters[0].ColorCounter - device.Counters[1].ColorCounter - (3*device.FreePrintsColor);
+                            device.BlackWhiteEval = device.Counters[0].BlackWhiteCounter - device.Counters[1].BlackWhiteCounter - (3*device.FreePrintsBlackWhite);
                             if (device.BlackWhiteEval < 0)
                                 device.BlackWhiteEval = 0;
                             if (device.ColEval < 0)

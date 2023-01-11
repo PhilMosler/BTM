@@ -8,3 +8,5 @@ Quartal weise abrechnung erstellen
 Suche nach namen und Gerätenummern => aktuell nach Namen/Email
 
 
+Evaluation fails if Counter is not there
+Alle felder bearbeiten

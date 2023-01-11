@@ -4,6 +4,7 @@ using BTM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BTM.Data.Migrations
 {
     [DbContext(typeof(BTMDbContext))]
-    partial class BTMDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230111160525_DeviceNumber")]
+    partial class DeviceNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +51,6 @@ namespace BTM.Data.Migrations
                     b.Property<int>("Quartal")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuartalYear")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.ToTable("Counters");
@@ -68,9 +68,8 @@ namespace BTM.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeviceNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DeviceNumber")
+                        .HasColumnType("int");
 
                     b.Property<int>("FreePrintsBlackWhite")
                         .HasColumnType("int");

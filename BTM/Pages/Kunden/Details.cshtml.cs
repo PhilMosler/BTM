@@ -6,6 +6,7 @@ using Syncfusion.DocIO;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace BTM.Pages.Kunden
 {
@@ -32,7 +33,6 @@ namespace BTM.Pages.Kunden
         public bool Black { get; set; }
         [BindProperty]
         public bool Gesamt { get; set; }
-
 
 
 

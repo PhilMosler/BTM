@@ -213,11 +213,11 @@
                                 <tbody>
                                     <form method="post">
 
-                                        @foreach (var counter in item.Counters.OrderByDescending(x => x.DateTime))
+                                        @foreach (var counter in item.Counters.OrderByDescending(x => x.QuartalYear).OrderByDescending(x=>x.Quartal))
                                         {
                                         <tr class="content">
-                                            <td>@counter.DateTime.ToString("yyyy")</td>
-                                            <td>@counter.Quartal</td>
+                                            <td>@counter.QuartalYear</td>
+                                            <td>@counter.Quartal </td>
                                             <td>@counter.ColorCounter</td>
                                             <td>@counter.BlackWhiteCounter</td>
                                             <td>@counter.CounterSum</td>
@@ -282,7 +282,15 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Quartal</span>
                                                         <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required></select>
-                                                        <span class="input-group-text">@DateTime.Today.ToString("yyyy")</span>
+                                                        <span class="input-group-text"><select class="custom-select" asp-for="Counters.QuartalYear">
+                                                            <option value="2022">2022</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2024">2024</option>
+                                                            <option value="2025">2025</option>
+                                                            <option value="2026">2026</option>
+                                                            <option value="2027">2027</option>
+
+                                                        </select></span>
                                                     </div>
 
                                                 </div>
