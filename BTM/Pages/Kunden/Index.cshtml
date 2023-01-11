@@ -59,6 +59,9 @@
                             Kunden Email
                         </td>
                         <td>
+                            Aktueller Zählerstand vorhanden?
+                        </td>
+                        <td>
                             Standort
                         </td>
                         <td>
@@ -75,34 +78,50 @@
                         <tr>
 
                             <td>
-                                    @item.Name
+                                @item.Name
                             </td>
                             <td>
-                                    @item.Email
+                                @item.Email
                             </td>
+
+                            @if (item.IsUpToDate)
+                            {
+                                <td>
+                                    Ja
+                                </td>
+
+                            }
+                            else
+                            {
+                                <td>
+                                    Nein
+                                </td> 
+                            }
+
                             <td>
-                                    @item.Standort
+                                @item.Standort
                             </td>
                             <td>
                                 Adresse
                             </td>
                             <td>
-                                    @if (item.Telefons != null && item.Telefons.Count() > 0)
+                                @if (item.Telefons != null && item.Telefons.Count() > 0)
+                                {
+                                    @foreach (var phone in item.Telefons)
                                     {
-                                        @foreach (var phone in item.Telefons)
-                                        {
                                         <div class="row">
-                                                @phone.Name : @phone.TelefonNummer
+                                            @phone.Name : @phone.TelefonNummer
                                         </div>
-                                        }
                                     }
+                                }
                             </td>
-                            <td>                            <button type="submit" asp-page-handler="Detail" asp-route-ID="@item.ID" value="detail" class="btn btn-secondary">
+                            <td>
+                                <button type="submit" asp-page-handler="Detail" asp-route-ID="@item.ID" value="detail" class="btn btn-secondary">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </td>
                         </tr>
-                        
+
                     }
                 </tbody>
             </table>

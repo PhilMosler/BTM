@@ -64,15 +64,7 @@ namespace BTM.Pages.Kunden
         {
             var dev = this.Devices;
             dev.KundenID = ID;            
-            _db.AddDevice(dev);
-            this.Counters=new Counters();
-            this.Counters.DateTime = DateTime.Now;
-            this.Counters.ColorCounter = 0;
-            this.Counters.BlackWhiteCounter = 0;
-            this.Counters.CounterSum = 0;
-            this.Counters.DeviceID = dev.ID;
-            _db.AddCounters(this.Counters);
-            this.Counters= new Counters();
+            _db.AddDevice(dev);            
             return RedirectToPage();
         }
         public IActionResult OnPostAddCounter(int ID)

@@ -29,9 +29,11 @@
                     <td>Gerätenamen</td>
                     <td>Vertrag</td>
                     <td class="table-active"></td>
+                    <td class="table-active"></td>
                     <td class="table-active">letztes Quartal</td>
                     <td class="table-active"></td>
                     <td></td>
+                    <td class="table-active"></td>
                     <td class="table-active"></td>
                     <td class="table-active">aktuelles Quartal</td>
                     <td class="table-active"></td>
@@ -43,11 +45,12 @@
                 <tr>
                     <td></td>
                     <td></td>
-
+                    <td class="table-active">Quartal</td>
                     <td class="table-active">Farbe</td>
                     <td class="table-active">Schwarz/Weiß</td>
                     <td class="table-active">Gesamt</td>
                     <td></td>
+                    <td class="table-active">Quartal</td>
                     <td class="table-active">Farbe</td>
                     <td class="table-active">Schwarz/Weiß</td>
                     <td class="table-active">Gesamt</td>
@@ -60,31 +63,39 @@
             <tbody>
                 @foreach (var device in Model.Devices)
                 {
-                    <tr>
-                        <td>@device.DeviceName</td>
-                        <td>@{
-                                @foreach (var value in @EnumHelper<Verträge>.GetValues(device.VertragsID))
-                                {
-                                    if (value == device.VertragsID)
+                    @if (device.Counters.Count >= 2)
+                    {
+
+
+                        <tr>
+                            <td>@device.DeviceName</td>
+                            <td>
+                                @{
+                                    @foreach (var value in @EnumHelper<Verträge>.GetValues(device.VertragsID))
                                     {
-                                        var description = EnumHelper<Verträge>.GetDisplayValue(value);
-                                        @Html.DisplayFor(e => description )
+                                        if (value == device.VertragsID)
+                                        {
+                                            var description = EnumHelper<Verträge>.GetDisplayValue(value);
+                                            @Html.DisplayFor(e => description )
+                                        }
                                     }
                                 }
-                            }</td>
+                            </td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].QuartalYear @device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].Quartal</td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].ColorCounter</td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].BlackWhiteCounter</td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].CounterSum</td>
+                            <td></td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].QuartalYear @device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].Quartal</td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].ColorCounter</td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].BlackWhiteCounter</td>
+                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].CounterSum</td>
+                            <td style="text-align:center">@device.FreePrintsColor/@device.FreePrintsBlackWhite</td>
+                            <td class="table-success" style="text-align:center">@device.ColEval</td>
+                            <td class="table-success" style="text-align:center">@device.BlackWhiteEval</td>
 
-                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].ColorCounter</td>
-                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].BlackWhiteCounter</td>
-                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].CounterSum</td>
-                        <td></td>
-                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].ColorCounter</td>
-                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].BlackWhiteCounter</td>
-                        <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].CounterSum</td>
-                        <td style="text-align:center">@device.FreePrintsColor/@device.FreePrintsBlackWhite</td>
-                        <td class="table-success" style="text-align:center">@device.ColEval</td>
-                        <td class="table-success" style="text-align:center">@device.BlackWhiteEval</td>
-
-                    </tr>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>

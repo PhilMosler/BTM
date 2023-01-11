@@ -213,7 +213,7 @@
                                 <tbody>
                                     <form method="post">
 
-                                        @foreach (var counter in item.Counters.OrderByDescending(x => x.QuartalYear).OrderByDescending(x=>x.Quartal))
+                                        @foreach (var counter in item.Counters.OrderByDescending(x => x.QuartalYear))
                                         {
                                         <tr class="content">
                                             <td>@counter.QuartalYear</td>
@@ -283,13 +283,10 @@
                                                         <span class="input-group-text">Quartal</span>
                                                         <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required></select>
                                                         <span class="input-group-text"><select class="custom-select" asp-for="Counters.QuartalYear">
+                                                            <option value="@DateTime.Today.Year">@DateTime.Today.Year</option>
                                                             <option value="2022">2022</option>
-                                                            <option value="2023">2023</option>
-                                                            <option value="2024">2024</option>
-                                                            <option value="2025">2025</option>
-                                                            <option value="2026">2026</option>
-                                                            <option value="2027">2027</option>
-
+                                                            <option value="2021">2021</option>
+                                                            <option value="2020">2020</option>
                                                         </select></span>
                                                     </div>
 

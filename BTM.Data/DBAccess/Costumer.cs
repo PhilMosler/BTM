@@ -1,6 +1,8 @@
 ﻿using BTM.Data.DBAccess;
 using Microsoft.EntityFrameworkCore;
 using BTM;
+using BTM.Data.Enums;
+
 namespace BTM.Data
 {
     public class Costumer : ICostumer
@@ -48,7 +50,7 @@ namespace BTM.Data
         {
             try
             {
-                if (int.TryParse(Search, out int num));
+                if (int.TryParse(Search, out int num)) ;
 
 
                 var All = _db.Customers.Where(x =>
@@ -59,15 +61,15 @@ namespace BTM.Data
                 {
                     foreach (var item in All)
                     {
-                        var phone= _db.Telephone.Where(x => x.KundenID == item.ID).ToList();
-                        var device= _db.Devices.Where(x => x.KundenID == item.ID).ToList();
+                        var phone = _db.Telephone.Where(x => x.KundenID == item.ID).ToList();
+                        var device = _dev.GetDevicesByCustomerID(item.ID);
                         if (phone.Any())
                         {
-                            item.Telefons=phone;
+                            item.Telefons = phone;
                         }
-                        if(device.Any())
+                        if (device.Any())
                         {
-                            item.Devices=device;
+                            item.Devices = device;
                         }
                     }
                 }
@@ -75,8 +77,8 @@ namespace BTM.Data
             }
             catch (Exception e)
             {
-                Console.WriteLine("Get All Customer failed"+e.Message+e.StackTrace);
-                return null;
+                Console.WriteLine("Get All Customer failed" + e.Message + e.StackTrace);
+                return new List<Kunde>();
             }
         }
 
@@ -121,7 +123,7 @@ namespace BTM.Data
 
         public void HideDevice(int DeviceID)
         {
-            if(DeviceID > 0)
+            if (DeviceID > 0)
             {
                 var selcted = _db.Devices.SingleOrDefault(x => x.ID == DeviceID);
                 if (selcted.ID > 0)
@@ -154,5 +156,6 @@ namespace BTM.Data
             _db.SaveChanges();
             return kunde;
         }
+       
     }
 }

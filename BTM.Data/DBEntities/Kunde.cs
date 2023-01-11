@@ -16,6 +16,9 @@ namespace BTM.Data
         public List<Devices>?Devices { get; set; }
         [NotMapped]
         public List<Telefon>? Telefons { get; set; }
+        [NotMapped]
+        public bool IsUpToDate { get; set; } = true;
+
         
     }
 }
