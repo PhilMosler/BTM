@@ -114,6 +114,11 @@ namespace BTM.Pages.Kunden
             _db.HideDevice(DeviceID);
             return RedirectToPage();
         }
+        public IActionResult OnPostDeletePhone()
+        {
+            var test = 0;
+            return RedirectToPage();
+        }
         private void CreateCostumerEvaluation(Kunde results)
         {
             

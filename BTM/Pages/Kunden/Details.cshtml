@@ -40,37 +40,48 @@
 
         </div>
         <div class="col">
-            <form method="post" asp-page-handler="AddPhone">
-                <input type="hidden" asp-for="Telefon.ID" />
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <td>
-                                <div class="input-group">
-                                    <span class="input-group-text">Name</span>
-                                    <input type="text" class="form-control" asp-for="Telefon.Name" required />
-                                </div>
-                            </td>
-                            <td>
-                                <div class="input-group">
-                                    <span class="input-group-text">Telefonnummer</span>
-                                    <input type="text" class="form-control" asp-for="Telefon.TelefonNummer" required />
-                                </div>
-                            </td>
-                            <td><div><button type="submit" value="add" class="btn btn-outline-secondary"><i class="bi bi-telephone-plus"></i></button></div></td>
-                        </tr>
-                    </thead>
-                    <tbody>
+
+
+            <table class="table table-striped">
+
+                <thead>
+                    <form method="post" asp-page-handler="AddPhone">
+                        <input type="hidden" asp-for="Telefon.ID" />
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-text">Name</span>
+                                <input type="text" class="form-control" asp-for="Telefon.Name" required />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-text">Telefonnummer</span>
+                                <input type="text" class="form-control" asp-for="Telefon.TelefonNummer" required />
+                            </div>
+                        </td>
+                        <td><div><button type="submit" value="add" class="btn btn-outline-secondary"><i class="bi bi-telephone-plus"></i></button></div></td>
+                    </tr>
+                    </form>
+
+                </thead>
+                <form method="post" asp-page-handler="DeletePhone">
+
+                <tbody>
+
                         @foreach (var item in Model.CurrentCostumer.Telefons)
                         {
-                            <tr>
-                                <td>@item.Name</td>
-                                <td>@item.TelefonNummer</td>
-                            </tr>
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.TelefonNummer</td>
+                            <td><button type="submit" class="btn" asp-route-itemid="@item.ID" ><i class="bi bi-trash"></i></button></td>
+
+                        </tr>
                         }
-                    </tbody>
-                </table>
-            </form>
+                </tbody>
+                </form>
+
+            </table>
 
         </div>
     </div>
@@ -282,12 +293,14 @@
                                                     <div class="input-group">
                                                         <span class="input-group-text">Quartal</span>
                                                         <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required></select>
-                                                        <span class="input-group-text"><select class="custom-select" asp-for="Counters.QuartalYear">
-                                                            <option value="@DateTime.Today.Year">@DateTime.Today.Year</option>
-                                                            <option value="2022">2022</option>
-                                                            <option value="2021">2021</option>
-                                                            <option value="2020">2020</option>
-                                                        </select></span>
+                                                        <span class="input-group-text">
+                                                            <select class="custom-select" asp-for="Counters.QuartalYear">
+                                                                <option value="@DateTime.Today.Year">@DateTime.Today.Year</option>
+                                                                <option value="2022">2022</option>
+                                                                <option value="2021">2021</option>
+                                                                <option value="2020">2020</option>
+                                                            </select>
+                                                        </span>
                                                     </div>
 
                                                 </div>
@@ -336,57 +349,57 @@
         </script>
     }
 
-    </body>
+</body>
 
-    </html>
+</html>
 
 
 
-    <style>
-        .left {
-            float: left;
+<style>
+    .left {
+        float: left;
+    }
+
+    .floated {
+        float: left;
+        margin-right: 5px;
+    }
+
+    .button {
+        border-radius: 10px;
+        min-height: 30px;
+        min-width: 50;
+    }
+
+        .button:hover {
+            background-color: red;
+            transition: 0.4s;
+            opacity: 0.5;
         }
 
-        .floated {
-            float: left;
-            margin-right: 5px;
+    .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+        .active, .collapsible:hover {
+            background-color: darkgray;
         }
 
-        .button {
-            border-radius: 10px;
-            min-height: 30px;
-            min-width: 50;
-        }
-
-            .button:hover {
-                background-color: red;
-                transition: 0.4s;
-                opacity: 0.5;
-            }
-
-        .collapsible {
-            background-color: #777;
-            color: white;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-        }
-
-            .active, .collapsible:hover {
-                background-color: darkgray;
-            }
-
-        .content {
-            padding: 0 18px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-            background-color: #f1f1f1;
-        }
-    </style>
+    .content {
+        padding: 0 18px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        background-color: #f1f1f1;
+    }
+</style>
 
 
