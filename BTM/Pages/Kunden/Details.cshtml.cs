@@ -51,6 +51,7 @@ namespace BTM.Pages.Kunden
         {
             Counters = new Counters();
             CurrentCostumer = _db.GetCostumer(id);
+            NewName = CurrentCostumer.Name;
             LastCounter = _db.GetAllLastCountersOfKunde(id);
             var test = CurrentDevice;
             

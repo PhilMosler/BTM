@@ -20,7 +20,7 @@
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Nummer</span>
-                <input type="number" class="form-control" placeholder="Gerätenummer" asp-for="CurrentDevice.DeviceNumber" required />
+                <input type="text" class="form-control" placeholder="Gerätenummer" asp-for="CurrentDevice.DeviceNumber" required />
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Standort</span>
@@ -57,7 +57,9 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nein nicht abbrechen</button>
-                            <button type="submit" class="btn btn-danger" asp-page-handler="Back">Ja abbrechen und zurück</button>
+                            <button type="button" class="btn btn-danger">
+                            <a class="text-black" asp-page="./Details" asp-route-Id="@Model.CurrentDevice.KundenID">Ja abbrechen und zurück</a>
+                            </button>
                         </div>
                     </div>
                 </div>
