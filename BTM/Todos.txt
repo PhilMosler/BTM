@@ -1,13 +1,8 @@
 ﻿Todos
 
 Zählerstand überprüfen nur wenn größer als vorher speichern => User Notification fehlt noch
-Verschiedene Vertragsarten hinzufügen
-Ausblenden an Geräten
-Frei Kopien hinzufügen bei Geräten => fertig
-Quartal weise abrechnung erstellen
 Suche nach namen und Gerätenummern => aktuell nach Namen/Email
 
 
-Evaluation fails if Counter is not there
 Alle felder bearbeiten
 Optisches Feedback ob aktuelles Quartal vorhanden ist.

@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICostumer, Costumer>();
 builder.Services.AddScoped<IDevices, DevicesAcess>();
 
@@ -24,9 +25,13 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRouting();
 
-app.MapRazorPages();
+app.UseEndpoints(end =>
+{
+    end.MapRazorPages();
+    end.MapControllers();
+});
 app.Run();

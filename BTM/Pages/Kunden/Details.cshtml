@@ -14,7 +14,33 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <html>
-<h2>Kunde: @Model.CurrentCostumer.Name</h2>
+    <form method="post">
+    <h2>
+        Kunde: @Model.CurrentCostumer.Name 
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#update"><i class="bi bi-pencil-fill"></i></button>
+    </h2>
+
+    
+    <div class="modal fade" id="update" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="update">Neuen Namen für @Model.CurrentCostumer.Name eingeben</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <input type="text" asp-for="NewName" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                    <button type="submit" class="btn btn-success" asp-page-handler="UpdateName">Speichern</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
 <br />
 <form method="post">
     <button class="btn btn-secondary" asp-page-handler="Back">Zurück</button>
@@ -47,6 +73,7 @@
                 <thead>
                     <form method="post" asp-page-handler="AddPhone">
                         <input type="hidden" asp-for="Telefon.ID" />
+                        <input type="hidden" asp-for="Telefon.KundenID" />
                     <tr>
                         <td>
                             <div class="input-group">
@@ -65,21 +92,22 @@
                     </form>
 
                 </thead>
-                <form method="post" asp-page-handler="DeletePhone">
 
                 <tbody>
+                    <form method="post">
 
                         @foreach (var item in Model.CurrentCostumer.Telefons)
                         {
                         <tr>
                             <td>@item.Name</td>
                             <td>@item.TelefonNummer</td>
-                            <td><button type="submit" class="btn" asp-route-itemid="@item.ID" ><i class="bi bi-trash"></i></button></td>
+                            <td><button type="submit" class="btn" asp-page-handler="DeletePhone" asp-route-phoneID="@item.ID"><i class="bi bi-trash"></i></button></td>
 
                         </tr>
                         }
+                    </form>
+
                 </tbody>
-                </form>
 
             </table>
 
@@ -92,6 +120,7 @@
         <table class="table table">
             <thead>
                 <tr>
+                    <td></td>
                     <td></td>
 
                     <td>Gerätename</td>
@@ -179,6 +208,8 @@
                         <td></td>
                         <td></td>
                         <td></td>
+                        <td></td>
+
                     </tr>
                     <tr>
                         <form method="post">
@@ -202,8 +233,15 @@
                                 </div>
                             </div>
                         </td>
-
                         </form>
+                        <form method="post">
+                        <td>
+                            <button class="btn" type="submit" asp-page-handler="EditDevice" asp-route-DeviceID="@item.ID"><i class="bi bi-pencil-square"></i></button>
+
+
+                        </td>
+                        </form>
+
                         <td>@item.DeviceName</td>
                         <td>@item.DeviceNumber</td>
                         <td>@item.VertragsID</td>
@@ -347,6 +385,8 @@
             }
 
         </script>
+
+
     }
 
 </body>

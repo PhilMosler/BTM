@@ -148,6 +148,20 @@ namespace BTM.Data
             }
         }
 
+        public bool RemovePhone(int PhoneId)
+        {
+            if (PhoneId > 0)
+            {
+                if (_db.Telephone.Any(x => x.ID == PhoneId))
+                {
+                    _db.Telephone.Remove(_db.Telephone.Find(PhoneId));
+                    _db.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public Kunde UpdateCostumer(Kunde kunde)
         {
             if (kunde.Standort == null)

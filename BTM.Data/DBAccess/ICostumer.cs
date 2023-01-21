@@ -11,6 +11,7 @@ namespace BTM.Data
         Kunde AddNewCostumer(Kunde kunde);
         Kunde UpdateCostumer(Kunde kunde);
         void AddTelephone(Telefon telefon);
+        bool RemovePhone(int PhoneId);
         Devices AddDevice(Devices device);
         Counters AddCounters(Counters counter);
         Counters GetLastCounterOfDevice(int ID);

@@ -9,6 +9,7 @@ namespace BTM.Data.DBAccess
     public interface IDevices
     {
         List<Devices> GetDevicesByCustomerID(int id);
-
+        Devices GetDevicesById(int id);
+        Devices UpdateDevice(Devices device);
     }
 }

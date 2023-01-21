@@ -40,9 +40,10 @@ namespace BTM.Pages.Kunden
         {
             return RedirectToPage($"./Details",new {Id=ID });
         }
-        public IActionResult OnPostSearch()        
+        public IActionResult OnPostSearch()
         {
             return RedirectToPage();
         }
+        
     }
 }

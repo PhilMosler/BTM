@@ -62,6 +62,21 @@ namespace BTM.Data.DBAccess
                 return new List<Devices>();
             }
         }
+
+        public Devices GetDevicesById(int id)
+        {
+            return _db.Devices.SingleOrDefault(x => x.ID == id);
+        }
+
+        public Devices UpdateDevice(Devices device)
+        {
+            if(device!=null)
+            {
+                _db.Devices.Update(device);
+                _db.SaveChanges();
+            }
+            return device;
+        }
         #region Helper
         private bool CheckForQuartal(Devices device)
         {

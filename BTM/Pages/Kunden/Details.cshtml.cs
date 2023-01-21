@@ -7,6 +7,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using DocumentFormat.OpenXml;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using BTM.Data.DBAccess;
 
 namespace BTM.Pages.Kunden
 {
@@ -33,19 +34,25 @@ namespace BTM.Pages.Kunden
         public bool Black { get; set; }
         [BindProperty]
         public bool Gesamt { get; set; }
+        [BindProperty]
+        public Devices CurrentDevice { get; set; }
+        [BindProperty]
+        public string NewName { get; set; }
 
 
-
+        private readonly IDevices _dev;
         private readonly ICostumer _db;
-        public DetailsModel(ICostumer db)
+        public DetailsModel(ICostumer db, IDevices dev)
         {
-            _db = db;           
+            _db = db;
+            _dev = dev;
         }
         public void OnGet(int id)
         {
             Counters = new Counters();
             CurrentCostumer = _db.GetCostumer(id);
             LastCounter = _db.GetAllLastCountersOfKunde(id);
+            var test = CurrentDevice;
             
         }
         public IActionResult OnPost(int ID)
@@ -102,11 +109,13 @@ namespace BTM.Pages.Kunden
         public IActionResult OnPostCalculateCounters(int ID)
         {
             return RedirectToPage("./Evaluation", new { ID });
-        }       
-
+        }
+        public IActionResult OnPostEditDevice(int DeviceID)
+        {
+            return RedirectToPage("./EditDevice", new { DeviceID });
+        }
         public IActionResult OnPostBack()
         {
-
             return RedirectToPage("./Index");
         }
         public IActionResult OnPostDeleteDevice(int ID,int DeviceID)
@@ -114,15 +123,20 @@ namespace BTM.Pages.Kunden
             _db.HideDevice(DeviceID);
             return RedirectToPage();
         }
-        public IActionResult OnPostDeletePhone()
+        public IActionResult OnPostDeletePhone(int phoneID)
         {
-            var test = 0;
+            _db.RemovePhone(phoneID);
             return RedirectToPage();
         }
-        private void CreateCostumerEvaluation(Kunde results)
+        public IActionResult OnPostUpdateName()
         {
-            
-
+            var NewCostumer = _db.GetCostumer(CurrentCostumer.ID);
+            if (!string.IsNullOrWhiteSpace(NewName))
+            {
+                NewCostumer.Name = NewName;
+                _db.UpdateCostumer(NewCostumer);
+            }                
+            return RedirectToPage();
         }
 
     }

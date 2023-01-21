@@ -1,0 +1,69 @@
+﻿@page "{DeviceID:int?}"
+@using BTM.Data.Enums;
+@model BTM.Pages.Kunden.EditDeviceModel
+@{
+    ViewData["Title"] = "Gerät editieren";
+}
+
+<html>
+<h3>Gerät ändern</h3>
+<form method="post">
+    <input type="hidden" asp-for="CurrentDevice.KundenID" />
+    <input type="hidden" asp-for="CurrentDevice.ID"/>
+
+    <div class="form-control">
+
+        <div class="input-group">
+            <div class="input-group mb-3">
+                <span class="input-group-text">Name</span>
+                <input type="Text" class="form-control" placeholder="Gerätename" asp-for="CurrentDevice.DeviceName" required />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Nummer</span>
+                <input type="number" class="form-control" placeholder="Gerätenummer" asp-for="CurrentDevice.DeviceNumber" required />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Standort</span>
+                <input type="text" class="form-control" placeholder="Standort" asp-for="CurrentDevice.Standort" required />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Frei Kopien Farbe</span>
+                <input type="number" class="form-control" placeholder="Farbe" asp-for="CurrentDevice.FreePrintsColor" value="0" />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Frei Kopien Schwarz/Weiß</span>
+                <input type="number" class="form-control" placeholder="Farbe" asp-for="CurrentDevice.FreePrintsBlackWhite" value="0" />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Vertrag</span>
+                <select class="custom-select" asp-items="Html.GetEnumSelectList<Verträge>()" asp-for="CurrentDevice.VertragsID" required>
+                </select>
+
+            </div>
+        </div>
+        <div>
+            <button type="submit" asp-page-handler="Save">Speichern</button>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#Back" style="float:right">Abrechen und Zurück</button>
+            <div class="modal fade" id="Back" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="Back">Vorgang Abbrechen?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Wollen sie wirklich abbrechen?
+                            Alle vorgenommenen änderungen werden nicht gespeichert.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nein nicht abbrechen</button>
+                            <button type="submit" class="btn btn-danger" asp-page-handler="Back">Ja abbrechen und zurück</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</form>
+</html>
