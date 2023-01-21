@@ -4,5 +4,4 @@ Zählerstand überprüfen nur wenn größer als vorher speichern => User Notific
 Suche nach namen und Gerätenummern => aktuell nach Namen/Email
 
 
-Alle felder bearbeiten
 Optisches Feedback ob aktuelles Quartal vorhanden ist.
