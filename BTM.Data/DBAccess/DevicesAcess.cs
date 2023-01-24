@@ -81,6 +81,7 @@ namespace BTM.Data.DBAccess
         private bool CheckForQuartal(Devices device)
         {
             var lastCount = device.Counters.OrderByDescending(x => x.DateTime).First();
+            
             var currentQuartal = Quartal.Quartal1;
             var today = DateTime.Today;
             if (today.Month >= 1 && today.Month <= 3)

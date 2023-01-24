@@ -56,7 +56,10 @@ namespace BTM.Data
                 var All = _db.Customers.Where(x =>
               x.Name.Contains(Search)
             || string.IsNullOrWhiteSpace(Search)
-            || x.Email.Contains(Search));
+            || x.Email.Contains(Search)
+             
+            
+            );
                 if (All != null && All.Count() > 0)
                 {
                     foreach (var item in All)

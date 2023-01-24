@@ -58,7 +58,7 @@
                         <td>
                             Kunden Email
                         </td>
-                        <td>
+                        <td width="50">
                             Aktueller Zählerstand vorhanden?
                         </td>
                         <td>
@@ -79,25 +79,27 @@
 
                             <td>
                                 @item.Name
-                                
+
                             </td>
                             <td>
                                 @item.Email
                             </td>
+                            <td>
+                                <div class="@(item.IsUpToDate ? "green" : "red")">@(item.IsUpToDate ? "Ja" : "Nein")</div>
+                            </td>
+                            @*@if (item.IsUpToDate)
+                        {
+                        <td class="">
+                        Ja
+                        </td>
 
-                            @if (item.IsUpToDate)
-                            {
-                                <td>
-                                    Ja
-                                </td>
-
-                            }
-                            else
-                            {
-                                <td>
-                                    Nein
-                                </td> 
-                            }
+                        }
+                        else
+                        {
+                        <td class="red">
+                        Nein
+                        </td>
+                        }*@
 
                             <td>
                                 @item.Standort
@@ -130,4 +132,17 @@
     </form>
 </body>
 </html>
+
+<style>
+    .green {
+        background-color: rgba(0, 255, 0, 0.5);
+        text-align: center;
+        font-weight: bold;
+    }
+    .red {
+        background-color: rgba(255, 0, 0, 0.5);
+        text-align: center;
+        font-weight:bold;
+    }
+</style>
 
