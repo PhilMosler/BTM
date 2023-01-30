@@ -26,5 +26,6 @@ namespace BTM.Data
         public int BlackWhiteEval { get; set; }
         [NotMapped]
         public bool isUpToDate { get; set; }
+        public string Description { get; set; }
     }
 }

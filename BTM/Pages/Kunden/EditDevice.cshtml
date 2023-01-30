@@ -9,7 +9,7 @@
 <h3>Gerät ändern</h3>
 <form method="post">
     <input type="hidden" asp-for="CurrentDevice.KundenID" />
-    <input type="hidden" asp-for="CurrentDevice.ID"/>
+    <input type="hidden" asp-for="CurrentDevice.ID" />
 
     <div class="form-control">
 
@@ -21,6 +21,10 @@
             <div class="input-group mb-3">
                 <span class="input-group-text">Nummer</span>
                 <input type="text" class="form-control" placeholder="Gerätenummer" asp-for="CurrentDevice.DeviceNumber" required />
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">Beschreibung</span>
+                <textarea type="text" class="form-control" placeholder="Druckerbeschreibung" asp-for="CurrentDevice.Description"></textarea>
             </div>
             <div class="input-group mb-3">
                 <span class="input-group-text">Standort</span>
@@ -58,13 +62,13 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Nein nicht abbrechen</button>
                             <button type="button" class="btn btn-danger">
-                            <a class="text-black" asp-page="./Details" asp-route-Id="@Model.CurrentDevice.KundenID">Ja abbrechen und zurück</a>
+                                <a class="text-black" asp-page="./Details" asp-route-Id="@Model.CurrentDevice.KundenID">Ja abbrechen und zurück</a>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
-        
+
         </div>
     </div>
 </form>

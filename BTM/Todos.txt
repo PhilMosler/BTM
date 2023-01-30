@@ -3,5 +3,4 @@
 Zählerstand überprüfen nur wenn größer als vorher speichern => User Notification fehlt noch
 Suche nach namen und Gerätenummern => aktuell nach Namen/Email
 
-
-Remove Gesamt counter from Devices
+Quartal aussuchen zum Abrechnen in Evaluations Dropdown?

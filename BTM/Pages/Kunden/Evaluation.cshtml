@@ -29,11 +29,9 @@
                     <td>Gerätenamen</td>
                     <td>Vertrag</td>
                     <td class="table-active"></td>
-                    <td class="table-active"></td>
                     <td class="table-active">letztes Quartal</td>
                     <td class="table-active"></td>
                     <td></td>
-                    <td class="table-active"></td>
                     <td class="table-active"></td>
                     <td class="table-active">aktuelles Quartal</td>
                     <td class="table-active"></td>
@@ -48,12 +46,10 @@
                     <td class="table-active">Quartal</td>
                     <td class="table-active">Farbe</td>
                     <td class="table-active">Schwarz/Weiß</td>
-                    <td class="table-active">Gesamt</td>
                     <td></td>
                     <td class="table-active">Quartal</td>
                     <td class="table-active">Farbe</td>
                     <td class="table-active">Schwarz/Weiß</td>
-                    <td class="table-active">Gesamt</td>
                     <td>Farbe/SchwarzWeiß</td>
                     <td class="table-active table-success">Farbe</td>
                     <td class="table-active table-success">Schwarz/Weiß</td>
@@ -84,12 +80,10 @@
                             <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].QuartalYear @device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].Quartal</td>
                             <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].ColorCounter</td>
                             <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].BlackWhiteCounter</td>
-                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[1].CounterSum</td>
                             <td></td>
                             <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].QuartalYear @device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].Quartal</td>
                             <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].ColorCounter</td>
                             <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].BlackWhiteCounter</td>
-                            <td class="table-active" style="text-align:center">@device.Counters.OrderByDescending(x=>x.DateTime).ToList()[0].CounterSum</td>
                             <td style="text-align:center">@device.FreePrintsColor/@device.FreePrintsBlackWhite</td>
                             <td class="table-success" style="text-align:center">@device.ColEval</td>
                             <td class="table-success" style="text-align:center">@device.BlackWhiteEval</td>

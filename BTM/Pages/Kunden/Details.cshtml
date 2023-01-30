@@ -14,13 +14,13 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <html>
-    <form method="post">
+<form method="post">
     <h2>
-        Kunde: @Model.CurrentCostumer.Name 
+        Kunde: @Model.CurrentCostumer.Name
         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#update"><i class="bi bi-pencil-fill"></i></button>
     </h2>
 
-    
+
     <div class="modal fade" id="update" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    </form>
+</form>
 <br />
 <form method="post">
     <button class="btn btn-secondary" asp-page-handler="Back">Zurück</button>
@@ -121,7 +121,7 @@
             <thead>
                 <tr>
                     <td></td>
-                    <td></td>
+                    <td>Beschreibung</td>
 
                     <td>Gerätename</td>
                     <td>Gerätenummer</td>
@@ -155,6 +155,10 @@
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Nummer</span>
                                                 <input type="text" class="form-control" placeholder="Gerätenummer" asp-for="Devices.DeviceNumber" required />
+                                            </div>
+                                            <div class="input-group mb-3">
+                                                <span class="input-group-text">Beschreibung</span>
+                                                <textarea type="text" class="form-control" placeholder="Druckerbeschreibung" asp-for="Devices.Description"></textarea>
                                             </div>
                                             <div class="input-group mb-3">
                                                 <span class="input-group-text">Standort</span>
@@ -201,47 +205,37 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.CurrentCostumer.Devices)
-                {
+                {                    
                     <tr>
-
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                    <tr>
-                        <form method="post">
                         <td>
-                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#löschen"><i class="bi bi-trash"></i></button>
-                            <div class="modal fade" id="löschen" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="löschen">@item.DeviceName löschen?</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Wollen sie wirklich das Gerät entfernen?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-                                            <button type="submit" class="btn btn-danger" asp-page-handler="DeleteDevice" asp-route-DeviceID="@item.ID">Löschen</button>
+                            <form method="post">
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#löschen"><i class="bi bi-trash"></i></button>
+                                <div class="modal fade" id="löschen" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="löschen">@item.DeviceName löschen?</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Wollen sie wirklich das Gerät entfernen?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                                                <button type="submit" class="btn btn-danger" asp-page-handler="DeleteDevice" asp-route-DeviceID="@item.ID">Löschen</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+                            <form method="post">
+                                <button class="btn" type="submit" asp-page-handler="EditDevice" asp-route-DeviceID="@item.ID"><i class="bi bi-pencil-square"></i></button>
+
+                            </form>
                         </td>
-                        </form>
-                        <form method="post">
                         <td>
-                            <button class="btn" type="submit" asp-page-handler="EditDevice" asp-route-DeviceID="@item.ID"><i class="bi bi-pencil-square"></i></button>
-
-
+                                    @item.Description
                         </td>
-                        </form>
-
                         <td>@item.DeviceName</td>
                         <td>@item.DeviceNumber</td>
                         <td>@item.VertragsID</td>
@@ -255,7 +249,6 @@
                                         <td>Quartal</td>
                                         <td>Farbe</td>
                                         <td>Schwarz Weiß</td>
-                                        <td>Gesamt</td>
                                         <td></td>
                                     </tr>
                                 </thead>
@@ -269,7 +262,6 @@
                                             <td>@counter.Quartal </td>
                                             <td>@counter.ColorCounter</td>
                                             <td>@counter.BlackWhiteCounter</td>
-                                            <td>@counter.CounterSum</td>
                                             <td>
                                                     @if (item.Counters[0].ID == counter.ID)
                                                     {
@@ -322,11 +314,7 @@
                                                     <span class="input-group-text">@item.FreePrintsColor Freikopien</span>
 
                                                 </div>
-                                                <div class="input-group mb-3">
-                                                    <span class="input-group-text">Gesamt</span>
-                                                    <input type="number" class="form-control" asp-for="Counters.CounterSum" />
-
-                                                </div>
+                                                
                                                 <div class="input-group mb-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">Quartal</span>

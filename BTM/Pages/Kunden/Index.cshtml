@@ -64,9 +64,7 @@
                         <td>
                             Standort
                         </td>
-                        <td>
-                            Adresse
-                        </td>
+                        
                         <td>Telefon</td>
 
                         <td></td>
@@ -86,27 +84,12 @@
                             </td>
                             <td>
                                 <div class="@(item.IsUpToDate ? "green" : "red")">@(item.IsUpToDate ? "Ja" : "Nein")</div>
-                            </td>
-                            @*@if (item.IsUpToDate)
-                        {
-                        <td class="">
-                        Ja
-                        </td>
-
-                        }
-                        else
-                        {
-                        <td class="red">
-                        Nein
-                        </td>
-                        }*@
+                            </td>                          
 
                             <td>
                                 @item.Standort
                             </td>
-                            <td>
-                                Adresse
-                            </td>
+                           
                             <td>
                                 @if (item.Telefons != null && item.Telefons.Count() > 0)
                                 {
