@@ -64,7 +64,7 @@ namespace BTM.Data
                 {
                     foreach (var item in All)
                     {
-                        var phone = _db.Telephone.Where(x => x.KundenID == item.ID).ToList();
+                        var phone = _db.Telephone.Where(x => x.KundenID.ID == item.ID).ToList();
                         var device = _dev.GetDevicesByCustomerID(item.ID);
                         if (phone.Any())
                         {
@@ -108,7 +108,7 @@ namespace BTM.Data
                 if (kunde != null && kunde.ID > 0)
                 {
                     kunde.Devices = _dev.GetDevicesByCustomerID(id);
-                    kunde.Telefons = _db.Telephone.Where(x => x.KundenID == id).ToList();
+                    kunde.Telefons = _db.Telephone.Where(x => x.KundenID.ID == id).ToList();
                     return kunde;
                 }
             }
@@ -117,7 +117,7 @@ namespace BTM.Data
 
         public Counters GetLastCounterOfDevice(int ID)
         {
-            var listOFDeviceCounters = _db.Counters.Where(x => x.DeviceID == ID).OrderByDescending(x => x.DateTime).ToList();
+            var listOFDeviceCounters = _db.Counters.Where(x => x.DeviceID.ID == ID).OrderByDescending(x => x.DateTime).ToList();
             var lastCounter = new Counters() { CounterSum = 0, BlackWhiteCounter = 0, ColorCounter = 0 };
             if (listOFDeviceCounters.Count > 0)
                 lastCounter = listOFDeviceCounters.First();

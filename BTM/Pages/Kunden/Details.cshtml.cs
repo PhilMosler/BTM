@@ -64,14 +64,14 @@ namespace BTM.Pages.Kunden
         public IActionResult OnPostAddPhone(int ID)
         {
             var phone = Telefon;
-            phone.KundenID = ID;
+            phone.KundenID = CurrentCostumer;
             _db.AddTelephone(phone);
             return this.RedirectToPage();
         }
         public IActionResult OnPostAddDevice(int ID)
         {
             var dev = this.Devices;
-            dev.KundenID = ID;            
+            dev.KundenID = CurrentCostumer;            
             _db.AddDevice(dev);            
             return RedirectToPage();
         }
@@ -82,7 +82,7 @@ namespace BTM.Pages.Kunden
             Gesamt = true;
             var counter = this.Counters;
             counter.DateTime = DateTime.Now;
-            var lastCounter = _db.GetLastCounterOfDevice(counter.DeviceID);
+            var lastCounter = _db.GetLastCounterOfDevice(counter.DeviceID.ID);
             if (lastCounter.ColorCounter > counter.ColorCounter)
             {
                ViewData["Color"] = "Error";

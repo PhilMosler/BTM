@@ -8,7 +8,7 @@ namespace BTM.Data
     {
         [Key]
         public int ID { get; set; }
-        public int KundenID { get; set; }
+        public Kunde KundenID { get; set; }
         public string DeviceNumber { get; set; }
         public string DeviceName { get; set; }
         public int FreePrintsColor { get; set; }

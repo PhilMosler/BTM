@@ -6,7 +6,7 @@ namespace BTM.Data
     {
         [Key]
         public int ID { get; set; }
-        public int KundenID { get; set; }
+        public Kunde KundenID { get; set; }
         public string Name { get; set; }
         public string TelefonNummer { get; set; }
     }

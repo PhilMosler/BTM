@@ -21,11 +21,11 @@ namespace BTM.Data.DBAccess
             {
                 if (id != null && id > 0)
                 {
-                    var devices = _db.Devices.Where(x => x.KundenID == id && x.IsVisible == true).ToList();
+                    var devices = _db.Devices.Where(x => x.KundenID.ID == id && x.IsVisible == true).ToList();
 
                     foreach (var device in devices.Where(x=>x.IsVisible))
                     {
-                        device.Counters = _db.Counters.Where(x => x.DeviceID == device.ID).OrderByDescending(x => x.DateTime).ToList();
+                        device.Counters = _db.Counters.Where(x => x.DeviceID.ID == device.ID).OrderByDescending(x => x.DateTime).ToList();
                         if (device.Counters.Count >= 2)
                         {
                             device.ColEval = device.Counters[0].ColorCounter - device.Counters[1].ColorCounter - (3*device.FreePrintsColor);
