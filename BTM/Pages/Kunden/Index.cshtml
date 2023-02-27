@@ -71,7 +71,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.AllCostumers)
+                    @foreach (var item in Model.AllCostumers.OrderBy(x=>x.Name))
                     {
                         <tr>
 
