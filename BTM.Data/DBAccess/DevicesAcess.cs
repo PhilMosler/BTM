@@ -15,7 +15,7 @@ namespace BTM.Data.DBAccess
         {
             _db = db;
         }
-        public List<Devices> GetDevicesByCustomerID(int id)
+        public List<Devices> GetDevicesByCustomerID(int id,Filter filter)
         {
             try
             {
@@ -23,13 +23,13 @@ namespace BTM.Data.DBAccess
                 {
                     var devices = _db.Devices.Where(x => x.KundenID == id && x.IsVisible == true).ToList();
 
-                    foreach (var device in devices.Where(x=>x.IsVisible))
+                    foreach (var device in devices.Where(x => x.IsVisible))
                     {
                         device.Counters = _db.Counters.Where(x => x.DeviceID == device.ID).OrderByDescending(x => x.DateTime).ToList();
                         if (device.Counters.Count >= 2)
                         {
-                            device.ColEval = device.Counters[0].ColorCounter - device.Counters[1].ColorCounter - (3*device.FreePrintsColor);
-                            device.BlackWhiteEval = device.Counters[0].BlackWhiteCounter - device.Counters[1].BlackWhiteCounter - (3*device.FreePrintsBlackWhite);
+                            device.ColEval = device.Counters[0].ColorCounter - device.Counters[1].ColorCounter - (3 * device.FreePrintsColor);
+                            device.BlackWhiteEval = device.Counters[0].BlackWhiteCounter - device.Counters[1].BlackWhiteCounter - (3 * device.FreePrintsBlackWhite);
                             if (device.BlackWhiteEval < 0)
                                 device.BlackWhiteEval = 0;
                             if (device.ColEval < 0)
@@ -42,8 +42,8 @@ namespace BTM.Data.DBAccess
                         }
                         if (device.Counters.Any())
                         {
-                            device.isUpToDate=CheckForQuartal(device);
-                            if(!device.isUpToDate) { _db.Customers.Find(id).IsUpToDate = false; }
+                            device.isUpToDate = CheckForQuartal(device,filter);
+                            if (!device.isUpToDate) { _db.Customers.Find(id).IsUpToDate = false; }
                         }
                         else
                         {
@@ -65,12 +65,12 @@ namespace BTM.Data.DBAccess
 
         public Devices GetDevicesById(int id)
         {
-            return _db.Devices.SingleOrDefault(x => x.ID == id);
+            return _db.Devices.FirstOrDefault(x => x.ID == id);
         }
 
         public Devices UpdateDevice(Devices device)
         {
-            if(device!=null)
+            if (device != null)
             {
                 _db.Devices.Update(device);
                 _db.SaveChanges();
@@ -78,25 +78,57 @@ namespace BTM.Data.DBAccess
             return device;
         }
         #region Helper
-        private bool CheckForQuartal(Devices device)
+        private (int, int) GetMonthOfQuartal()
         {
-            var lastCount = device.Counters.OrderByDescending(x => x.DateTime).First();
-            
-            var currentQuartal = Quartal.Quartal1;
-            var today = DateTime.Today;
-            if (today.Month >= 1 && today.Month <= 3)
-                currentQuartal = Quartal.Quartal1;
-            else if (today.Month >= 4 && today.Month <= 6)
-                currentQuartal = Quartal.Quartal2;
-            else if (today.Month >= 7 && today.Month <= 9)
-                currentQuartal = Quartal.Quartal3;
-            else if (today.Month >= 10 && today.Month <= 12)
-                currentQuartal = Quartal.Quartal4;
-            if (lastCount.QuartalYear == DateTime.Today.Year && lastCount.Quartal == currentQuartal)
+            List<List<int>> Months = new List<List<int>>
             {
-                return true;
+                new List<int>() { 1, 2, 3 },
+                new List<int>() { 4, 5, 6 },
+                new List<int>() { 7, 8, 9 },
+                new List<int>() { 10, 11, 12 }
+            };
+            var quartal = Months.FindIndex(x => x.Contains(DateTime.Today.Month));        // add 1 => 0 index
+            var montOfQuartal = Months.ElementAt(quartal).IndexOf(DateTime.Today.Month);  // add 1 => 0 index
+
+            return (quartal, montOfQuartal);
+        }
+        public Quartal GetCurrentQuartal()
+        {
+            return (Quartal)((GetMonthOfQuartal().Item1 + 1) * 10);
+        }
+        private bool CheckForQuartal(Devices device,Filter filter)
+        {
+
+            var QuartalInfo = GetMonthOfQuartal();
+            QuartalInfo.Item2 = 1;
+            var lastCount = device.Counters.OrderByDescending(x => x.DateTime).First();
+            var currentQuartal = Quartal.Default;
+            switch (QuartalInfo.Item1)
+            {
+                case 0:
+                    currentQuartal = Quartal.Quartal1;
+                    break;
+                case 1:
+                    currentQuartal = Quartal.Quartal2;
+                    break;
+                case 2:
+                    currentQuartal = Quartal.Quartal3;
+                    break;
+                case 3:
+                    currentQuartal = Quartal.Quartal4;
+                    break;
+                default:
+                    currentQuartal = Quartal.Default;
+                    break;
             }
 
+
+            if (currentQuartal != Quartal.Default  )
+            {
+                if (lastCount.QuartalYear == filter.SearchYear && lastCount.Quartal == filter.SearchQuartal)
+                    return true;
+                
+            }
             return false;
         }
         #endregion

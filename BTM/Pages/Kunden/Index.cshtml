@@ -1,4 +1,5 @@
 ﻿@page
+@using BTM.Data.Enums;
 @model Pages.Kunden.IndexModel
 @{
     ViewData["Title"] = "Übersicht";
@@ -47,72 +48,87 @@
             </div>
         </form>
     </div>
-    <form method="post">
-        <div class="">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <td>
-                            Kunden Name
-                        </td>
-                        <td>
-                            Kunden Email
-                        </td>
-                        <td width="50">
-                            Aktueller Zählerstand vorhanden?
-                        </td>
-                        <td>
-                            Standort
-                        </td>
-                        
-                        <td>Telefon</td>
 
-                        <td></td>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.AllCostumers.OrderBy(x=>x.Name))
+
+    <div class="">
+        <table class="table">
+            <form method="get">
+                
+            <thead>
+                <tr>
+                    <td>
+                        Kunden Name
+                    </td>
+                    <td>
+                        Kunden Email
+                    </td>
+                    <td>
+                        <select class="select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="SelectedQuartal" onchange="this.form.submit();"></select>
+                        <select class="select" asp-for="SelectedYear" onchange="this.form.submit();">
+                            <option>2022</option>
+                            <option>2023</option>
+                            <option>2024</option>
+                            <option>2025</option>
+                            <option>2026</option>
+                        </select>                       
+                        Aktueller Zählerstand vorhanden?
+                    </td>
+                    <td>
+                        Standort
+                    </td>
+
+                    <td>Telefon</td>
+
+                    <td></td>
+                </tr>
+            </thead>
+            </form>
+            <form method="post">
+            <tbody>
+                    @foreach (var item in Model.AllCostumers.OrderBy(x => x.Name))
                     {
-                        <tr>
+                    <tr>
 
-                            <td>
+                        <td>
                                 @item.Name
 
-                            </td>
-                            <td>
+                        </td>
+                        <td>
                                 @item.Email
-                            </td>
-                            <td>
-                                <div class="@(item.IsUpToDate ? "green" : "red")">@(item.IsUpToDate ? "Ja" : "Nein")</div>
-                            </td>                          
+                        </td>
+                        <td>
+                            <div class="@(item.IsUpToDate ? "green" : "red")">@(item.IsUpToDate ? "Ja" : "Nein")</div>
+                        </td>
 
-                            <td>
+                        <td>
                                 @item.Standort
-                            </td>
-                           
-                            <td>
+                        </td>
+
+                        <td>
                                 @if (item.Telefons != null && item.Telefons.Count() > 0)
                                 {
                                     @foreach (var phone in item.Telefons)
                                     {
-                                        <div class="row">
+                                    <div class="row">
                                             @phone.Name : @phone.TelefonNummer
-                                        </div>
+                                    </div>
                                     }
                                 }
-                            </td>
-                            <td>
-                                <button type="submit" asp-page-handler="Detail" asp-route-ID="@item.ID" value="detail" class="btn btn-secondary">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        </td>
+                        <td>
+                            <button type="submit" asp-page-handler="Detail" asp-route-ID="@item.ID" value="detail" class="btn btn-secondary">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </td>
+                    </tr>
 
                     }
-                </tbody>
-            </table>
-        </div>
-    </form>
+            </tbody>
+            </form>
+
+        </table>
+    </div>
+
 </body>
 </html>
 
@@ -122,10 +138,11 @@
         text-align: center;
         font-weight: bold;
     }
+
     .red {
         background-color: rgba(255, 0, 0, 0.5);
         text-align: center;
-        font-weight:bold;
+        font-weight: bold;
     }
 </style>
 

@@ -6,7 +6,7 @@ namespace BTM.Data
 {
     public interface ICostumer
     {
-        List<Kunde> GetAllCostumers(string search);
+        List<Kunde> GetAllCostumers(string search,Filter filter);
         Kunde GetCostumer(int id);
         Kunde AddNewCostumer(Kunde kunde);
         Kunde UpdateCostumer(Kunde kunde);
@@ -19,6 +19,11 @@ namespace BTM.Data
         List<Tuple<Devices, Counters>> GetAllLastCountersOfKunde(int ID);
         void HideDevice(int DeviceID);
 
+    }
+    public class Filter
+    {
+        public int SearchYear { get; set; }
+        public Quartal SearchQuartal { get; set; }
     }
 }
     

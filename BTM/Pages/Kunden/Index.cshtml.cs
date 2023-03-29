@@ -1,4 +1,6 @@
 using BTM.Data;
+using BTM.Data.DBAccess;
+using BTM.Data.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -6,22 +8,30 @@ namespace BTM.Pages.Kunden
 {
     public class IndexModel : PageModel
     {
-        private readonly ICostumer _costumer;
+        private ICostumer _costumer { get; set; }
+        private IDevices _devices { get; set; }
+
         private readonly ILogger<IndexModel> _logger;
-        public IndexModel(ILogger<IndexModel> logger, ICostumer costumer)
+        public IndexModel(ILogger<IndexModel> logger, ICostumer costumer,IDevices devices)
         {
             _logger = logger;
             _costumer = costumer;
+            _devices = devices;
         }
         [BindProperty]
         public List<Kunde> AllCostumers { get; set; }
+        [BindProperty]
+        public Quartal SelectedQuartal { get; set; }
+        [BindProperty]
+        public int SelectedYear { get; set; }
         [BindProperty]
         public Kunde Costumer { get; set; }
         [BindProperty(SupportsGet = true)]
         public string Search { get; set; }
         public void OnGet()
         {
-            AllCostumers = _costumer.GetAllCostumers(Search);
+            var filter = new Filter() { SearchQuartal= SelectedQuartal,SearchYear=SelectedYear };
+            AllCostumers = _costumer.GetAllCostumers(Search,filter);
             if (AllCostumers == null)
                 AllCostumers = new List<Kunde>();
 
@@ -40,10 +50,10 @@ namespace BTM.Pages.Kunden
         {
             return RedirectToPage($"./Details",new {Id=ID });
         }
-        public IActionResult OnPostSearch()
+        public IActionResult OnPostAddFilter()
         {
             return RedirectToPage();
         }
-        
+
     }
 }

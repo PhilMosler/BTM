@@ -46,7 +46,7 @@ namespace BTM.Data
             _db.SaveChanges();
         }
 
-        public List<Kunde> GetAllCostumers(string Search)
+        public List<Kunde> GetAllCostumers(string Search,Filter filter)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace BTM.Data
                     foreach (var item in All)
                     {
                         var phone = _db.Telephone.Where(x => x.KundenID == item.ID).ToList();
-                        var device = _dev.GetDevicesByCustomerID(item.ID);
+                        var device = _dev.GetDevicesByCustomerID(item.ID,filter);
                         if (phone.Any())
                         {
                             item.Telefons = phone;

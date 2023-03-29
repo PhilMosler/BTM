@@ -11,6 +11,7 @@ namespace BTM.Data.Enums
         Quartal1=10,
         Quartal2=20,
         Quartal3=30,
-        Quartal4=40
+        Quartal4=40,
+        Default=0
     }
 }
