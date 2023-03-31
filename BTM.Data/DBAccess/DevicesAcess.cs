@@ -15,7 +15,7 @@ namespace BTM.Data.DBAccess
         {
             _db = db;
         }
-        public List<Devices> GetDevicesByCustomerID(int id,Filter filter)
+        public List<Devices> GetDevicesByCustomerID(int id, Filter filter)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace BTM.Data.DBAccess
                         }
                         if (device.Counters.Any())
                         {
-                            device.isUpToDate = CheckForQuartal(device,filter);
+                            device.isUpToDate = CheckForQuartal(device, filter);
                             if (!device.isUpToDate) { _db.Customers.Find(id).IsUpToDate = false; }
                         }
                         else
@@ -96,13 +96,13 @@ namespace BTM.Data.DBAccess
         {
             return (Quartal)((GetMonthOfQuartal().Item1 + 1) * 10);
         }
-        private bool CheckForQuartal(Devices device,Filter filter)
+        private bool CheckForQuartal(Devices device, Filter filter)
         {
 
             var QuartalInfo = GetMonthOfQuartal();
             QuartalInfo.Item2 = 1;
-            var lastCount = device.Counters.OrderByDescending(x => x.DateTime).First();
-            var currentQuartal = Quartal.Default;
+            var lastCount = device.Counters.OrderByDescending(x => x.DateTime);
+            var currentQuartal = Quartal.Quartal1;
             switch (QuartalInfo.Item1)
             {
                 case 0:
@@ -117,18 +117,11 @@ namespace BTM.Data.DBAccess
                 case 3:
                     currentQuartal = Quartal.Quartal4;
                     break;
-                default:
-                    currentQuartal = Quartal.Default;
-                    break;
             }
+            if (filter!=null && lastCount.Any(x => x.Quartal == filter.SearchQuartal && x.QuartalYear == filter.SearchYear))
+                return true;
 
 
-            if (currentQuartal != Quartal.Default  )
-            {
-                if (lastCount.QuartalYear == filter.SearchYear && lastCount.Quartal == filter.SearchQuartal)
-                    return true;
-                
-            }
             return false;
         }
         #endregion

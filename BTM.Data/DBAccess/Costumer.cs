@@ -90,7 +90,7 @@ namespace BTM.Data
             List<Tuple<Devices, Counters>> tuples = new List<Tuple<Devices, Counters>>();
             if (ID > 0)
             {
-                var Divices = _dev.GetDevicesByCustomerID(ID);
+                var Divices = _dev.GetDevicesByCustomerID(ID,null);
                 foreach (var item in Divices)
                 {
                     var lastount = GetLastCounterOfDevice(item.ID);
@@ -107,7 +107,7 @@ namespace BTM.Data
                 var kunde = _db.Customers.FirstOrDefault(x => x.ID == id);
                 if (kunde != null && kunde.ID > 0)
                 {
-                    kunde.Devices = _dev.GetDevicesByCustomerID(id);
+                    kunde.Devices = _dev.GetDevicesByCustomerID(id,null);
                     kunde.Telefons = _db.Telephone.Where(x => x.KundenID == id).ToList();
                     return kunde;
                 }

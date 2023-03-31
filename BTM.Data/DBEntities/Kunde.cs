@@ -18,7 +18,8 @@ namespace BTM.Data
         public List<Telefon>? Telefons { get; set; }
         [NotMapped]
         public bool IsUpToDate { get; set; } = true;
+        public bool InvoiceIsCreated { get; set; }
 
-        
+
     }
 }

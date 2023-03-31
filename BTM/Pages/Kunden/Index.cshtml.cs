@@ -20,9 +20,9 @@ namespace BTM.Pages.Kunden
         }
         [BindProperty]
         public List<Kunde> AllCostumers { get; set; }
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public Quartal SelectedQuartal { get; set; }
-        [BindProperty]
+        [BindProperty(SupportsGet = true)]
         public int SelectedYear { get; set; }
         [BindProperty]
         public Kunde Costumer { get; set; }

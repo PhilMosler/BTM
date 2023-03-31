@@ -22,7 +22,7 @@ namespace BTM.Pages.Kunden
         public void OnGet(int Id)
         {
             Costumer = _costumer.GetCostumer(Id);
-            Devices = _devices.GetDevicesByCustomerID(Id);
+            Devices = _devices.GetDevicesByCustomerID(Id,null);
         }
         public IActionResult OnPostBack(int ID)
         {

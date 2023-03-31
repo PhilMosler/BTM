@@ -6,7 +6,7 @@ namespace BTM.Data
 {
     public interface ICostumer
     {
-        List<Kunde> GetAllCostumers(string search,Filter filter);
+        List<Kunde> GetAllCostumers(string search,Filter? filter =null);
         Kunde GetCostumer(int id);
         Kunde AddNewCostumer(Kunde kunde);
         Kunde UpdateCostumer(Kunde kunde);

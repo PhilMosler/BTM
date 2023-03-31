@@ -86,6 +86,7 @@ namespace BTM.Pages.Kunden
             if (lastCounter.ColorCounter > counter.ColorCounter)
             {
                ViewData["Color"] = "Error";
+                Color= false;
             }
             if (lastCounter.CounterSum > counter.CounterSum)
             {
@@ -94,10 +95,13 @@ namespace BTM.Pages.Kunden
             if (lastCounter.BlackWhiteCounter > counter.BlackWhiteCounter)
             {
                 Black = false;
-            }
+            }            
             if (Black && Color)
             {
                 _db.AddCounters(counter);
+                CurrentCostumer = _db.GetCostumer(CurrentCostumer.ID);
+                CurrentCostumer.InvoiceIsCreated = false;
+                _db.UpdateCostumer(CurrentCostumer);
             }
             return RedirectToPage();
 

@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 <html>
+    
 <form method="post">
     <h2>
         Kunde: @Model.CurrentCostumer.Name
@@ -61,7 +62,14 @@
                         <span class="input-group-text">Standort</span>
                         <input type="text" class="form-control" placeholder="Stanort des Kunden" onchange="this.form.submit();" asp-for="CurrentCostumer.Standort" />
                     </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">
+                            <input type="checkbox" asp-for="CurrentCostumer.InvoiceIsCreated" id="invoice" onchange="this.form.submit();" />
+                        <div class="input-group">Rechnung erstellt</div>
+                        </span>
+                    </div>
                 </div>
+
             </form>
 
         </div>
@@ -205,7 +213,7 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.CurrentCostumer.Devices)
-                {                    
+                {
                     <tr>
                         <td>
                             <form method="post">
@@ -234,7 +242,7 @@
                             </form>
                         </td>
                         <td>
-                                    @item.Description
+                            @item.Description
                         </td>
                         <td>@item.DeviceName</td>
                         <td>@item.DeviceNumber</td>
@@ -314,7 +322,7 @@
                                                     <span class="input-group-text">@item.FreePrintsColor Freikopien</span>
 
                                                 </div>
-                                                
+
                                                 <div class="input-group mb-3">
                                                     <div class="input-group">
                                                         <span class="input-group-text">Quartal</span>

@@ -56,6 +56,7 @@
                 
             <thead>
                 <tr>
+                    <td>Rechnung erstellt?</td>
                     <td>
                         Kunden Name
                     </td>
@@ -88,7 +89,7 @@
                     @foreach (var item in Model.AllCostumers.OrderBy(x => x.Name))
                     {
                     <tr>
-
+                        <td>@(item.InvoiceIsCreated?"Ja":"Nein")</td>
                         <td>
                                 @item.Name
 
