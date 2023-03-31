@@ -17,6 +17,8 @@ namespace BTM.Pages.Kunden
             _logger = logger;
             _costumer = costumer;
             _devices = devices;
+            SelectedQuartal=_devices.GetCurrentQuartal();
+            SelectedYear=DateTime.Now.Year;
         }
         [BindProperty]
         public List<Kunde> AllCostumers { get; set; }

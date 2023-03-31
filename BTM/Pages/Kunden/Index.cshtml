@@ -43,6 +43,8 @@
     <div class="left">
         <form method="get">
             <div class="input-group mb-3">
+                <input type="hidden" asp-for="SelectedQuartal"/>
+                <input type="hidden" asp-for="SelectedYear"/>
                 <input type="text" class="form-control" placeholder="Suchen nach..." asp-for="Search" />
                 <button class="btn btn-outline-secondary" asp-page-handler="Search" type="submit">Suchen</button>
             </div>
@@ -53,7 +55,7 @@
     <div class="">
         <table class="table">
             <form method="get">
-                
+                <input type="hidden" asp-for="Search"/>
             <thead>
                 <tr>
                     <td>Rechnung erstellt?</td>
@@ -64,14 +66,17 @@
                         Kunden Email
                     </td>
                     <td>
-                        <select class="select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="SelectedQuartal" onchange="this.form.submit();"></select>
+                        <div>
+                         <select class="select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="SelectedQuartal" onchange="this.form.submit();"></select>
                         <select class="select" asp-for="SelectedYear" onchange="this.form.submit();">
                             <option>2022</option>
                             <option>2023</option>
                             <option>2024</option>
                             <option>2025</option>
                             <option>2026</option>
-                        </select>                       
+                        </select>                     
+                        </div>
+                          
                         Aktueller Zählerstand vorhanden?
                     </td>
                     <td>
@@ -89,7 +94,7 @@
                     @foreach (var item in Model.AllCostumers.OrderBy(x => x.Name))
                     {
                     <tr>
-                        <td>@(item.InvoiceIsCreated?"Ja":"Nein")</td>
+                        <td width="75"><div class="@(item.InvoiceIsCreated ? "green" : "red")">@(item.InvoiceIsCreated ? "Ja" : "Nein")</div></td>
                         <td>
                                 @item.Name
 
