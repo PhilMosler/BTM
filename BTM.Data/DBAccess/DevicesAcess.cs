@@ -118,10 +118,12 @@ namespace BTM.Data.DBAccess
                     currentQuartal = Quartal.Quartal4;
                     break;
             }
+            
+            if(lastCount.Count()==0)
+                return false;
+
             if (filter!=null && lastCount.Any(x => x.Quartal == filter.SearchQuartal && x.QuartalYear == filter.SearchYear))
                 return true;
-
-
             return false;
         }
         #endregion

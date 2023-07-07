@@ -80,9 +80,16 @@ namespace BTM.Pages.Kunden
             Color = true;
             Black = true;
             Gesamt = true;
+            var nextQuartal = false;
             var counter = this.Counters;
             counter.DateTime = DateTime.Now;
             var lastCounter = _db.GetLastCounterOfDevice(counter.DeviceID);
+
+            if (lastCounter.QuartalYear <= counter.QuartalYear && lastCounter.Quartal<Counters.Quartal)
+            {
+                nextQuartal = true;
+            }
+
             if (lastCounter.ColorCounter > counter.ColorCounter)
             {
                ViewData["Color"] = "Error";
@@ -96,7 +103,7 @@ namespace BTM.Pages.Kunden
             {
                 Black = false;
             }            
-            if (Black && Color)
+            if (Black && Color && nextQuartal)
             {
                 _db.AddCounters(counter);
                 CurrentCostumer = _db.GetCostumer(CurrentCostumer.ID);
