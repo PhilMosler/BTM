@@ -85,7 +85,7 @@ namespace BTM.Pages.Kunden
             counter.DateTime = DateTime.Now;
             var lastCounter = _db.GetLastCounterOfDevice(counter.DeviceID);
 
-            if (lastCounter.QuartalYear <= counter.QuartalYear && lastCounter.Quartal<Counters.Quartal)
+            if (lastCounter.QuartalYear <= counter.QuartalYear && lastCounter.Quartal<=Counters.Quartal)
             {
                 nextQuartal = true;
             }
