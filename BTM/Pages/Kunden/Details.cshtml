@@ -217,25 +217,7 @@
                     <tr>
                         <td>
                             <form method="post">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#löschen"><i class="bi bi-trash"></i></button>
-                                <div class="modal fade" id="löschen" tabindex="-1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="löschen">@item.DeviceName löschen?</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Wollen sie wirklich das Gerät entfernen?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-danger" asp-page-handler="DeleteDevice" asp-route-DeviceID="@item.ID">Löschen</button>
-
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <button type="submit" class="btn" asp-page-handler="DeleteDevice" asp-route-DeviceID="@item.ID" ><i class="bi bi-trash"></i></button>                              
 
                                 <div>@item.ID</div>
 
