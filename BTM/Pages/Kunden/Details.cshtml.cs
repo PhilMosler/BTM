@@ -38,7 +38,7 @@ namespace BTM.Pages.Kunden
         public Devices CurrentDevice { get; set; }
         [BindProperty]
         public string NewName { get; set; }
-
+        
 
         private readonly IDevices _dev;
         private readonly ICostumer _db;
@@ -130,11 +130,12 @@ namespace BTM.Pages.Kunden
         {
             return RedirectToPage("./Index");
         }
-        public IActionResult OnPostDeleteDevice(int ID,int DeviceID)
+        public IActionResult OnPostDeleteDevice(int DeviceID)
         {
             _db.HideDevice(DeviceID);
             return RedirectToPage();
         }
+       
         public IActionResult OnPostDeletePhone(int phoneID)
         {
             _db.RemovePhone(phoneID);
