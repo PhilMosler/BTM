@@ -331,11 +331,15 @@
                                                         <select class="custom-select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="Counters.Quartal" required></select>
                                                         <span class="input-group-text">
                                                             <select class="custom-select" asp-for="Counters.QuartalYear">
-                                                                <option value="@DateTime.Today.Year">@DateTime.Today.Year</option>
+                                                                    @for (int i = DateTime.Today.Year+1; i > DateTime.Today.Year-10; i--)
+                                                                    {
+                                                                        <option value=@i>@i</option>
+                                                                    }
+                                                               @* <option value="@DateTime.Today.Year">@DateTime.Today.Year</option>
                                                                 <option value="2023">2023</option>
                                                                 <option value="2022">2022</option>
                                                                 <option value="2021">2021</option>
-                                                                <option value="2020">2020</option>
+                                                                <option value="2020">2020</option>*@
                                                             </select>
                                                         </span>
                                                     </div>

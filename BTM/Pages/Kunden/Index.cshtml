@@ -69,11 +69,15 @@
                         <div>
                          <select class="select" asp-items="Html.GetEnumSelectList<Quartal>()" asp-for="SelectedQuartal" onchange="this.form.submit();"></select>
                         <select class="select" asp-for="SelectedYear" onchange="this.form.submit();">
-                            <option>2022</option>
+                                    @for (int i = DateTime.Today.Year; i > DateTime.Today.Year - 10; i--)
+                                    {
+                                    <option value=@i>@i</option>
+                                    }
+                            @*<option>2022</option>
                             <option>2023</option>
                             <option>2024</option>
                             <option>2025</option>
-                            <option>2026</option>
+                            <option>2026</option>*@
                         </select>                     
                         </div>
                           
